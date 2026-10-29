@@ -23,13 +23,13 @@ public class UsuarioEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(unique = true)
     private String login;
 
     @Column
     private String senha;
 
-    @Column
+    @Column(unique = true)
     private String cpf;
 
     @Column(name = "role")

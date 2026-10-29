@@ -1,4 +1,8 @@
 package org.sistema.triagem.Database.Repository;
 
-public interface UsuarioRepository {
+import org.sistema.triagem.Database.Model.UsuarioEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Integer> {
+
 }
