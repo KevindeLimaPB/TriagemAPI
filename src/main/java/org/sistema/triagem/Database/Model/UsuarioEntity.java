@@ -19,16 +19,13 @@ import java.util.List;
 @AllArgsConstructor
 public class UsuarioEntity implements UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
     @Column(unique = true)
     private String login;
 
     @Column
     private String senha;
 
+    @Id
     @Column(unique = true)
     private String cpf;
 
@@ -56,6 +53,7 @@ public class UsuarioEntity implements UserDetails {
                 new SimpleGrantedAuthority("ROLE_FUNCIONARIO")
         );
     }
+
 
     @Override
     public @Nullable String getPassword() {
