@@ -17,6 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class UsuarioEntity implements UserDetails {
 
     @Column(unique = true)
@@ -62,6 +63,6 @@ public class UsuarioEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return login;
+        return cpf;
     }
 }

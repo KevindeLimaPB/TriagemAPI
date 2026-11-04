@@ -1,5 +1,8 @@
 package org.sistema.triagem.Enums;
 
+import lombok.Getter;
+
+@Getter
 public enum Profissao {
     MEDICO("medico"),
     SUPORTE("Suporte"),
@@ -8,6 +11,6 @@ public enum Profissao {
     private String profissao;
 
     Profissao(String profissao){
-
+        this.profissao = profissao;
     }
 }

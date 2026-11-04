@@ -11,5 +11,6 @@ public enum EnumUser {
     private String role;
 
     EnumUser(String role) {
+        this.role = role;
     }
 }

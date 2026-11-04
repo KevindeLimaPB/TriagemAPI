@@ -26,11 +26,11 @@ public class ConsultaEntity {
     @Column
     private LocalDateTime dia_hora;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "medico")
     private MedicoEntity medico;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "paciente")
     private PacienteEntity paciente;
 

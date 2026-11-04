@@ -1,5 +1,8 @@
 package org.sistema.triagem.Enums;
 
+import lombok.Getter;
+
+@Getter
 public enum EspecialidadeConsulta {
     CARDIOLOGIA("cardiologia"),
     CLINICA_GERAL("clínica geral"),
@@ -15,6 +18,6 @@ public enum EspecialidadeConsulta {
     private String especialidade;
 
     EspecialidadeConsulta(String especialidade){
-
+        this.especialidade = especialidade;
     }
 }

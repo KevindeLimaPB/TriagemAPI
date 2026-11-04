@@ -30,6 +30,9 @@ public class FuncionarioEntity {
     @JoinColumn(name = "endereco")
     private EnderecoEntity endereco;
 
+    @OneToMany(mappedBy = "funcionario")
+    private Set<MedicoEntity> medicos;
+
 
     @Enumerated(EnumType.STRING)
     private Profissao profissao;

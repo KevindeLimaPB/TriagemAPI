@@ -27,8 +27,8 @@ public class MedicoEntity {
     @Enumerated(EnumType.STRING)
     private StatusMedic status;
 
-    @OneToMany
-    @JoinColumn(name = "funcionario_medic")
-    private Set<FuncionarioEntity> funcionario;
+    @ManyToOne
+    @JoinColumn(name = "funcionario_matricula")
+    private FuncionarioEntity funcionario;
 
 }

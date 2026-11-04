@@ -1,6 +1,7 @@
 package org.sistema.triagem.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,7 @@ public class EnderecoDTO {
     @NotBlank
     private String cep;
 
-    @NotBlank
+    @NotNull
     private Integer funcionario;
 
 

@@ -1,5 +1,8 @@
 package org.sistema.triagem.Enums;
 
+import lombok.Getter;
+
+@Getter
 public enum StatusMedic {
     ATIVO("ativo"),
     INATIVO("inativo");
@@ -7,6 +10,6 @@ public enum StatusMedic {
     private String status;
 
     StatusMedic(String status){
-
+        this.status = status;
     }
 }

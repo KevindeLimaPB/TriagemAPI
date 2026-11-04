@@ -23,6 +23,6 @@ public class MedicoDTO {
     private Status status;
 
     @NotNull
-    private Set<FuncionarioEntity> funcionario;
+    private Set<Integer> funcionario;
 
 }
