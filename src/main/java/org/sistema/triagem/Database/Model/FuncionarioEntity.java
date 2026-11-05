@@ -1,13 +1,11 @@
 package org.sistema.triagem.Database.Model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.sistema.triagem.Enums.Profissao;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,19 +14,21 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class FuncionarioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer matricula;
 
-    @ManyToOne
+    @OneToMany(mappedBy = "funcionario_id")
+    private List<EnderecoEntity> endereco;
+
+
+    @OneToOne
     @JoinColumn(name = "usuario")
     private UsuarioEntity usuario;
 
-    @OneToOne
-    @JoinColumn(name = "endereco")
-    private EnderecoEntity endereco;
 
     @OneToMany(mappedBy = "funcionario")
     private Set<MedicoEntity> medicos;

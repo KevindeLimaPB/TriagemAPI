@@ -1,7 +1,9 @@
 package org.sistema.triagem.Database.Repository;
 
+import jakarta.transaction.Transactional;
 import org.sistema.triagem.Database.Model.UsuarioEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,5 +25,10 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, String> 
     Optional<UsuarioEntity> findByCPF(String cpf);
 
     boolean existsByCpf(String cpf);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE UsuarioEntity u  SET u.senha = :senha WHERE u.cpf = :cpf")
+    Integer updatePassword(@Param("senha") String senha, @Param("cpf") String cpf);
 
 }
