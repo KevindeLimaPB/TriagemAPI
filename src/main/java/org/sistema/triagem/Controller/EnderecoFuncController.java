@@ -2,23 +2,23 @@ package org.sistema.triagem.Controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.sistema.triagem.Database.Model.EnderecoEntity;
+import org.sistema.triagem.Database.Model.EnderecoFuncEntity;
 import org.sistema.triagem.Service.EnderecoService;
-import org.sistema.triagem.dto.EnderecoDTO;
+import org.sistema.triagem.dto.EnderecoFuncDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/end")
 @RequiredArgsConstructor
-public class EnderecoController {
+public class EnderecoFuncController {
 
     private final EnderecoService enderecoService;
 
-    @PostMapping("/{id}")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public EnderecoEntity save(@RequestBody @Valid EnderecoDTO enderecoDTO, @PathVariable("id") Integer id) throws Exception{
-        return enderecoService.save(enderecoDTO, id);
+    public EnderecoFuncEntity save(@RequestBody @Valid EnderecoFuncDTO enderecoDTO) throws Exception {
+        return enderecoService.save(enderecoDTO);
     }
 
 }

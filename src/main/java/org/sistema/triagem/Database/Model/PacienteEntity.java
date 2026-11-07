@@ -1,11 +1,11 @@
 package org.sistema.triagem.Database.Model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.w3c.dom.stylesheets.LinkStyle;
+
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "paciente")
@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class PacienteEntity {
 
     @Id
@@ -23,9 +24,8 @@ public class PacienteEntity {
     @JoinColumn(name = "usuario")
     private UsuarioEntity usuario;
 
-    @OneToOne
-    @JoinColumn(name = "endereco")
-    private EnderecoEntity endereco;
+    @OneToMany(mappedBy = "paciente")
+    private List<EnderecoPacEntity> endereco;
 
     @Column
     private String nome;

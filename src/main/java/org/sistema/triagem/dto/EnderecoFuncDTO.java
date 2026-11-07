@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Setter
 @Getter
-public class EnderecoDTO {
+public class EnderecoFuncDTO {
 
     @NotBlank
     private String estado;

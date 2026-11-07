@@ -2,7 +2,6 @@ package org.sistema.triagem.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import org.sistema.triagem.Enums.Profissao;
 import java.time.LocalDate;
@@ -25,11 +24,7 @@ public class FuncionarioDTO {
     @NotNull
     private Integer idade;
 
-    @NotBlank
+    @NotNull
     private LocalDate data_hora;
-
-    @NotBlank
-    @Pattern( regexp = "^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$", message = "Error Formato deve ser 000.000.000-00")
-    private String cpf;
 
 }

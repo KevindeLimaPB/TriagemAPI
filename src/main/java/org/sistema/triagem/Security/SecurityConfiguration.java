@@ -29,6 +29,9 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "/register/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/func").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/end").permitAll()
+
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
 
                         .requestMatchers(HttpMethod.PUT, "/users").permitAll()

@@ -4,13 +4,13 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "Endereco")
+@Table(name = "Endereco_func")
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
 @Builder
-public class EnderecoEntity {
+public class EnderecoFuncEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

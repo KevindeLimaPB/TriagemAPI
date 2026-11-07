@@ -1,6 +1,7 @@
 package org.sistema.triagem.Global;
 
 import org.sistema.triagem.Exception.Conflict;
+import org.sistema.triagem.Exception.NotAuthorized;
 import org.sistema.triagem.Exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,15 @@ public class GlobalHeaderException {
                 .build();
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(NotAuthorized.class)
+    public ResponseEntity<ErrorResponse> HandlerNotAuthorized(NotAuthorized ex){
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .response(ex.getMessage())
+                .status(HttpStatus.FORBIDDEN.value())
+                .build();
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse);
     }
 
 }

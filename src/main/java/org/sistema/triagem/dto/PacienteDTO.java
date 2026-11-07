@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -19,9 +20,6 @@ public class PacienteDTO {
     @NotNull
     private String usuario;
 
-    @NotNull
-    private Integer endereco;
-
     @NotBlank(message = "Tem que ter um nome")
     private String nome;
 
@@ -29,5 +27,5 @@ public class PacienteDTO {
     private Integer idade;
 
     @NotBlank
-    private LocalDateTime data_hora;
+    private LocalDate data_Nascimento;
 }

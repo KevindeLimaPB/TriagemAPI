@@ -22,7 +22,7 @@ public class FuncionarioEntity {
     private Integer matricula;
 
     @OneToMany(mappedBy = "funcionario_id")
-    private List<EnderecoEntity> endereco;
+    private List<EnderecoFuncEntity> endereco;
 
 
     @OneToOne

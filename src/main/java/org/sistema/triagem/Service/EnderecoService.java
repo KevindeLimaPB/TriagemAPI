@@ -1,12 +1,12 @@
 package org.sistema.triagem.Service;
 
 import lombok.RequiredArgsConstructor;
-import org.sistema.triagem.Database.Model.EnderecoEntity;
+import org.sistema.triagem.Database.Model.EnderecoFuncEntity;
 import org.sistema.triagem.Database.Model.FuncionarioEntity;
 import org.sistema.triagem.Database.Repository.EnderecoRepository;
 import org.sistema.triagem.Database.Repository.FuncionarioRepository;
 import org.sistema.triagem.Exception.NotFoundException;
-import org.sistema.triagem.dto.EnderecoDTO;
+import org.sistema.triagem.dto.EnderecoFuncDTO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,11 +17,11 @@ public class EnderecoService {
 
     private final FuncionarioRepository funcionarioRepository;
 
-    public EnderecoEntity save(EnderecoDTO enderecoDTO, Integer id) throws NotFoundException {
-        FuncionarioEntity funcionarioEntity = funcionarioRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("ID não encontrada"));
+    public EnderecoFuncEntity save(EnderecoFuncDTO enderecoDTO) throws NotFoundException {
+        FuncionarioEntity funcionarioEntity = funcionarioRepository.findById(enderecoDTO.getFuncionario())
+                .orElseThrow(() -> new NotFoundException("Matrícula não encontrada"));
 
-        EnderecoEntity enderecoEntity = EnderecoEntity.builder()
+        EnderecoFuncEntity enderecoEntity = EnderecoFuncEntity.builder()
                 .estado(enderecoDTO.getEstado())
                 .cidade(enderecoDTO.getCidade())
                 .rua(enderecoDTO.getRua())
