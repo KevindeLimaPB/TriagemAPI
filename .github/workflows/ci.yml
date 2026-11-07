@@ -41,6 +41,7 @@ jobs:
       - name: test spring boot
         run: ./mvnw clean verify
         env:
+          #PRECISA DISSO PARA INFORMA AO SPRING PARA TESTA
           SPRING_DATASOURCE_URL: ${{ secrets.DB_URL}}
           SPRING_DATASOURCE_USERNAME: postgres
           SPRING_DATASOURCE_PASSWORD: ${{ secrets.DB_PASSWORD }}
