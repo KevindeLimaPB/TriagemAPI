@@ -12,6 +12,9 @@ jobs:
   continuos-integration:
     runs-on: ubuntu-latest
 
+    env:
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
     services:
       postgres:
         image: postgres:15-alpine
