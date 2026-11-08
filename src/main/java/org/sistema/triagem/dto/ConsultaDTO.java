@@ -19,8 +19,8 @@ public class ConsultaDTO {
     @NotNull
     private EspecialidadeConsulta especialidadeConsulta;
 
-    @NotNull
-    private Integer medico;
+    @NotBlank
+    private String medico;
 
     @NotNull
     private Integer paciente;
