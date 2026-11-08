@@ -22,4 +22,7 @@ public class EnderecoPacDTO {
     @NotNull
     private Integer paciente;
 
+    @NotNull
+    private Integer numero;
+
 }

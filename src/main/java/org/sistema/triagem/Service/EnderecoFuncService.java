@@ -3,7 +3,7 @@ package org.sistema.triagem.Service;
 import lombok.RequiredArgsConstructor;
 import org.sistema.triagem.Database.Model.EnderecoFuncEntity;
 import org.sistema.triagem.Database.Model.FuncionarioEntity;
-import org.sistema.triagem.Database.Repository.EnderecoRepository;
+import org.sistema.triagem.Database.Repository.EnderecoFuncRepository;
 import org.sistema.triagem.Database.Repository.FuncionarioRepository;
 import org.sistema.triagem.Exception.NotFoundException;
 import org.sistema.triagem.dto.EnderecoFuncDTO;
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class EnderecoService {
+public class EnderecoFuncService {
 
-    private final EnderecoRepository enderecoRepository;
+    private final EnderecoFuncRepository enderecoFuncRepository;
 
     private final FuncionarioRepository funcionarioRepository;
 
@@ -29,6 +29,6 @@ public class EnderecoService {
                 .funcionario_id(funcionarioEntity)
                 .build();
 
-        return enderecoRepository.save(enderecoEntity);
+        return enderecoFuncRepository.save(enderecoEntity);
     }
 }

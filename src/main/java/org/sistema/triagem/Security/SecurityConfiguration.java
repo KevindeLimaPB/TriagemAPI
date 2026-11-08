@@ -29,8 +29,14 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "/register/login").permitAll()
+
                         .requestMatchers(HttpMethod.POST, "/func").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/end").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/endfunc").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/telfunc").permitAll()
+
+                        .requestMatchers(HttpMethod.POST, "/endpac").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/pac").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/telpac").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
 
