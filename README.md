@@ -1,2 +1,1 @@
 # TriagemAPI
-qualquer bosta
