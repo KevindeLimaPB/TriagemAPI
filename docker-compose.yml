@@ -8,6 +8,8 @@ services:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - private_network
   app:
     build: .
     container_name: container-triagem
@@ -19,3 +21,9 @@ services:
       - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
     depends_on:
       - db
+    networks:
+      - private_network
+
+networks:
+  private_network:
+    driver: brigde
