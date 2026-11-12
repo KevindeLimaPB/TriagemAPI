@@ -10,6 +10,12 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     networks:
       - private_network
+
+    healthcheck:
+      test:  ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   app:
     build: .
     container_name: container-triagem
@@ -20,10 +26,11 @@ services:
       - SPRING_DATASOURCE_USERNAME=${DB_USER}
       - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - private_network
 
 networks:
   private_network:
-    driver: brigde
+    driver: bridge
