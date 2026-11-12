@@ -10,6 +10,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.sistema.triagem.Database.Model.UsuarioEntity;
 import org.sistema.triagem.Database.Repository.UsuarioRepository;
 import org.sistema.triagem.Enums.EnumUser;
+import org.sistema.triagem.Exception.Conflict;
+import org.sistema.triagem.Exception.NotFoundException;
 import org.sistema.triagem.Service.UsuarioService;
 import org.sistema.triagem.dto.UsuarioDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,6 +42,25 @@ public class UsuarioTEST {
         usuarioDTO.setSenha("senha123");
         usuarioDTO.setRole(EnumUser.FUNCIONARIO);
     }
+
+    @Test
+    @DisplayName("Deve impedir cpf duplicado or irregular")
+    void deveVerificarCpfDuplicado() throws Exception {
+        UsuarioDTO usuarioDT = new UsuarioDTO();
+        usuarioDT.setCpf("123.456.789-00");
+
+        when(usuarioRepository.existsByCpf(usuarioDT.getCpf())).thenReturn(true);
+
+        Conflict exception = assertThrows(Conflict.class, () -> {
+           usuarioService.save(usuarioDT);
+        });
+
+        assertEquals("CPF inválido", exception.getMessage());
+
+        verify(usuarioRepository, never()).save(any(UsuarioEntity.class));
+    }
+
+
 
     @Test
     @DisplayName("Deve salvar usuário com sucesso quando os dados forem válidos")
