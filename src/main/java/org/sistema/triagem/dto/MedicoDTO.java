@@ -8,6 +8,8 @@ import lombok.Setter;
 import org.sistema.triagem.Database.Model.FuncionarioEntity;
 import org.sistema.triagem.Enums.EspecialidadeMedic;
 import org.sistema.triagem.Enums.Status;
+
+import java.math.BigDecimal;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -21,6 +23,13 @@ public class MedicoDTO {
 
     @NotNull
     private Status status;
+
+    @NotNull
+    private BigDecimal preco_consulta;
+
+    @NotNull
+    private BigDecimal tele_consulta;
+
 
     @NotNull
     private Set<Integer> funcionario;

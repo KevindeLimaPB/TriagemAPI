@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.sistema.triagem.Enums.EspecialidadeMedic;
 import org.sistema.triagem.Enums.StatusMedic;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
@@ -26,6 +27,14 @@ public class MedicoEntity {
 
     @Enumerated(EnumType.STRING)
     private StatusMedic status;
+
+    @Column
+    private BigDecimal preco_consulta;
+
+    @Column
+    private BigDecimal tele_consulta;
+
+
 
     @ManyToOne
     @JoinColumn(name = "funcionario_matricula")
