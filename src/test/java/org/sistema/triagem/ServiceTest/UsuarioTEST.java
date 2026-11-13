@@ -11,7 +11,6 @@ import org.sistema.triagem.Database.Model.UsuarioEntity;
 import org.sistema.triagem.Database.Repository.UsuarioRepository;
 import org.sistema.triagem.Enums.EnumUser;
 import org.sistema.triagem.Exception.Conflict;
-import org.sistema.triagem.Exception.NotFoundException;
 import org.sistema.triagem.Service.UsuarioService;
 import org.sistema.triagem.dto.UsuarioDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
