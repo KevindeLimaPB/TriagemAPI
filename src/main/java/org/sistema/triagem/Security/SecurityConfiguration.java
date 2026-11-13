@@ -49,6 +49,7 @@ public class SecurityConfiguration {
                                 "/v3/api-docs.yaml"
                         ).permitAll()
 
+
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
