@@ -1,5 +1,6 @@
 package org.sistema.triagem.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +19,9 @@ import java.util.Set;
 @Getter
 public class MedicoDTO {
 
+    @NotBlank
+    private String crm;
+
     @NotNull
     private EspecialidadeMedic especialidade;
 
@@ -32,6 +36,6 @@ public class MedicoDTO {
 
 
     @NotNull
-    private Set<Integer> funcionario;
+    private Integer funcionario;
 
 }

@@ -1,10 +1,7 @@
 package org.sistema.triagem.Database.Model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.sistema.triagem.Enums.EspecialidadeMedic;
 import org.sistema.triagem.Enums.StatusMedic;
 
@@ -17,6 +14,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class MedicoEntity {
 
     @Id
