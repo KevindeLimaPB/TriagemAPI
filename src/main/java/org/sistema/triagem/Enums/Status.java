@@ -6,7 +6,7 @@ import lombok.Getter;
 public enum Status {
     CONCLUIDA("concluída"),
     CANCELADA("cancelada"),
-    MARCADA("marcada");
+    EM_AGUARDO("Em aguardo");
 
     private String status;
 

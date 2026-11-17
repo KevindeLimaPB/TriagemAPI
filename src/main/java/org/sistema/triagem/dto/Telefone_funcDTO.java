@@ -17,5 +17,5 @@ public class Telefone_funcDTO {
     private String telefone;
 
     @NotNull
-    private Integer funcionario;
+    private String funcionario;
 }

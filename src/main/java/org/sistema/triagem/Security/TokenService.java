@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import org.sistema.triagem.Database.Model.FuncionarioEntity;
 import org.sistema.triagem.Database.Model.UsuarioEntity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class TokenService {
             String token = JWT.create()
                     .withIssuer("auth-api")
                     .withSubject(usuarioEntity.getCpf())
+                    .withClaim("role","CLIENTE")
                     .withExpiresAt(genExpirationDate())
                     .sign(algorithm);
             return token;
@@ -31,6 +33,22 @@ public class TokenService {
             throw  new RuntimeException("ERROR while generating token", exception);
         }
     }
+
+    public String generateToken(FuncionarioEntity funcionarioEntity){
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            String token = JWT.create()
+                    .withIssuer("auth-api")
+                    .withSubject(funcionarioEntity.getMatricula())
+                    .withClaim("role","FUNCIONARIO")
+                    .withExpiresAt(genExpirationDate())
+                    .sign(algorithm);
+            return token;
+        } catch (JWTCreationException exception){
+            throw  new RuntimeException("ERROR while generating token", exception);
+        }
+    }
+
 
     public String validateToken(String token){
         try {

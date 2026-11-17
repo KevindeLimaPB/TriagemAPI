@@ -32,10 +32,6 @@ public class MedicoDTO {
     private BigDecimal preco_consulta;
 
     @NotNull
-    private BigDecimal tele_consulta;
-
-
-    @NotNull
-    private Integer funcionario;
+    private String funcionario;
 
 }

@@ -31,7 +31,6 @@ public class MedicoService {
                 .crm(medicoDTO.getCrm())
                 .especialidade(medicoDTO.getEspecialidade())
                 .preco_consulta(medicoDTO.getPreco_consulta())
-                .tele_consulta(medicoDTO.getTele_consulta())
                 .funcionario(entity)
                 .build();
 

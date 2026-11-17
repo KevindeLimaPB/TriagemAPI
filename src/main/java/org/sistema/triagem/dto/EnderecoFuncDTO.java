@@ -26,7 +26,7 @@ public class EnderecoFuncDTO {
     private String cep;
 
     @NotNull
-    private Integer funcionario;
+    private String funcionario;
 
 
 }

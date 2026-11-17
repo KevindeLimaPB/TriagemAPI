@@ -12,6 +12,9 @@ import java.time.LocalDate;
 @Getter
 public class FuncionarioDTO {
 
+    @NotBlank
+    private String matricula;
+
     @NotNull
     private String usuario;
 

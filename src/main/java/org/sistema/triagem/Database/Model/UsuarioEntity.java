@@ -40,13 +40,13 @@ public class UsuarioEntity implements UserDetails {
             return List.of(
                     new SimpleGrantedAuthority("ROLE_ADMIN"),
                     new SimpleGrantedAuthority("ROLE_FUNCIONARIO"),
-                    new SimpleGrantedAuthority("ROLE_PACIENTE")
+                    new SimpleGrantedAuthority("ROLE_CLIENTE")
             );
         }
 
-        if (this.enumUser == EnumUser.PACIENTE){
+        if (this.enumUser == EnumUser.CLIENTE){
             return List.of(
-                    new SimpleGrantedAuthority("ROLE_PACIENTE")
+                    new SimpleGrantedAuthority("ROLE_CLIENTE")
             );
         }
 

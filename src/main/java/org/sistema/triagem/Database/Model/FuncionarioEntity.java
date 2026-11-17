@@ -2,9 +2,14 @@ package org.sistema.triagem.Database.Model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.jspecify.annotations.Nullable;
 import org.sistema.triagem.Enums.Profissao;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -15,11 +20,10 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class FuncionarioEntity {
+public class FuncionarioEntity implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer matricula;
+    private String matricula;
 
     @OneToMany(mappedBy = "funcionario_id")
     private List<EnderecoFuncEntity> endereco;
@@ -45,4 +49,19 @@ public class FuncionarioEntity {
 
     @Column(name = "data_nasciemnto", nullable = true)
     private LocalDate dataNascimento;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_FUNCIONARIO"));
+    }
+
+    @Override
+    public @Nullable String getPassword() {
+        return usuario != null ? usuario.getSenha() : null;
+    }
+
+    @Override
+    public String getUsername() {
+        return matricula;
+    }
 }

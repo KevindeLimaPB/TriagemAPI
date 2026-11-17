@@ -29,11 +29,6 @@ public class MedicoEntity {
     @Column
     private BigDecimal preco_consulta;
 
-    @Column
-    private BigDecimal tele_consulta;
-
-
-
     @ManyToOne
     @JoinColumn(name = "funcionario_matricula")
     private FuncionarioEntity funcionario;
