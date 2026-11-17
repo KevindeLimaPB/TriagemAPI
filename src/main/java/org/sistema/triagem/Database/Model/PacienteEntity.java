@@ -2,8 +2,10 @@ package org.sistema.triagem.Database.Model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.sistema.triagem.Enums.SexoBiologico;
 import org.w3c.dom.stylesheets.LinkStyle;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -32,6 +34,15 @@ public class PacienteEntity {
 
     @Column
     private Integer idade;
+
+    @Column
+    private BigDecimal peso;
+
+    @Column
+    private BigDecimal altura;
+
+    @Enumerated(EnumType.STRING)
+    private SexoBiologico sexoBiologico;
 
     @Column(name = "data_nasciemnto", nullable = true)
     private LocalDate dataNascimento;

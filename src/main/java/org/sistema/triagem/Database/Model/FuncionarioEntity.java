@@ -52,7 +52,14 @@ public class FuncionarioEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_FUNCIONARIO"));
+        if (this.profissao == Profissao.MEDICO){
+            new SimpleGrantedAuthority("ROLE_MEDICO");
+        }
+        if (this.profissao == Profissao.SUPORTE){
+            new SimpleGrantedAuthority("ROLE_SUPORTE");
+        }
+
+        return List.of(new SimpleGrantedAuthority("ROLE_RECEPCIONISTA"));
     }
 
     @Override

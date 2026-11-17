@@ -18,7 +18,7 @@ public class FuncionarioDTO {
     @NotNull
     private String usuario;
 
-    @NotNull
+
     private Profissao profissao;
 
     @NotBlank(message = "Tem que ter um nome")
