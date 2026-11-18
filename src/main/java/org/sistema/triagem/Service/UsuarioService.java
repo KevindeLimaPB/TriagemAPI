@@ -34,6 +34,7 @@ public class UsuarioService {
         if (loginOpcional != null) loginOpcional = passwordEncoder.encode(loginOpcional);
 
         UsuarioEntity usuario = UsuarioEntity.builder()
+                .nome(usuarioDTO.getNome())
                 .cpf(usuarioDTO.getCpf())
                 .login(loginOpcional)
                 .senha(passwordEncoder.encode(usuarioDTO.getSenha()))
