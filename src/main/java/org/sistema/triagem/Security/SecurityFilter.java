@@ -77,12 +77,20 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getServletPath();
+        String method = request.getMethod();
 
-        return request.getMethod().equalsIgnoreCase("OPTIONS")
+        // Ignora o filtro de token para requisições OPTIONS e rotas públicas de cadastro/login
+        return method.equalsIgnoreCase("OPTIONS")
                 || path.startsWith("/swagger-ui")
-                || path.startsWith("/v3/api-docs");
+                || path.startsWith("/v3/api-docs")
+                || (method.equalsIgnoreCase("POST") && path.equals("/users"))
+                || (method.equalsIgnoreCase("POST") && path.equals("/register/login"))
+                || (method.equalsIgnoreCase("POST") && path.equals("/func"))
+                || (method.equalsIgnoreCase("POST") && path.equals("/pac"))
+                || (method.equalsIgnoreCase("POST") && path.equals("/med"))
+                || (method.equalsIgnoreCase("GET") && path.equals("/users"))
+                || (method.equalsIgnoreCase("PUT") && path.equals("/users"));
     }
-
 
 
     private String recoverToken(HttpServletRequest request){
