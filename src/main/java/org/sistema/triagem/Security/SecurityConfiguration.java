@@ -1,3 +1,4 @@
+
 package org.sistema.triagem.Security;
 
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -22,11 +24,22 @@ public class SecurityConfiguration {
     private final SecurityFilter securityFilter;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurit) throws Exception{
-        return httpSecurit
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity httpSecurity,
+            CorsConfigurationSource corsConfigurationSource
+    ) throws Exception {
+
+        return httpSecurity
+                .cors(cors -> cors.configurationSource(corsConfigurationSource))
+
                 .csrf(csrf -> csrf.disable())
-                .sessionManagement(sessions -> sessions.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+                .sessionManagement(sessions ->
+                        sessions.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+
                 .authorizeHttpRequests(authorize -> authorize
+
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "/register/login").permitAll()
 
@@ -40,7 +53,6 @@ public class SecurityConfiguration {
 
                         .requestMatchers(HttpMethod.POST, "/med").permitAll()
 
-
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
 
                         .requestMatchers(HttpMethod.PUT, "/users").permitAll()
@@ -52,20 +64,26 @@ public class SecurityConfiguration {
                                 "/v3/api-docs.yaml"
                         ).permitAll()
 
-
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+
+                .addFilterBefore(
+                        securityFilter,
+                        UsernamePasswordAuthenticationFilter.class
+                )
+
                 .build();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws  Exception{
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration authenticationConfiguration
+    ) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        return  new BCryptPasswordEncoder();
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
