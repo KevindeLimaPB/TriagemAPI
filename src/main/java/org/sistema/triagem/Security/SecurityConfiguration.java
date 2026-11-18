@@ -38,6 +38,9 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/pac").permitAll()
                         .requestMatchers(HttpMethod.POST, "/telpac").permitAll()
 
+                        .requestMatchers(HttpMethod.POST, "/med").permitAll()
+
+
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
 
                         .requestMatchers(HttpMethod.PUT, "/users").permitAll()

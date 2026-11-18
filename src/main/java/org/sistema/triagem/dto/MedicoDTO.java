@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.sistema.triagem.Database.Model.FuncionarioEntity;
 import org.sistema.triagem.Enums.EspecialidadeMedic;
 import org.sistema.triagem.Enums.Status;
+import org.sistema.triagem.Enums.StatusMedic;
 
 import java.math.BigDecimal;
 import java.util.Set;
@@ -26,7 +27,7 @@ public class MedicoDTO {
     private EspecialidadeMedic especialidade;
 
     @NotNull
-    private Status status;
+    private StatusMedic statusMedic;
 
     @NotNull
     private BigDecimal preco_consulta;

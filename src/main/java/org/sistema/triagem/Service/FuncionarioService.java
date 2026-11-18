@@ -30,7 +30,6 @@ public class FuncionarioService {
 
         FuncionarioEntity funcionarioEntity = FuncionarioEntity.builder()
                 .matricula(funcionarioDTO.getMatricula())
-                .nome(funcionarioDTO.getNome())
                 .idade(funcionarioDTO.getIdade())
                 .profissao(funcionarioDTO.getProfissao())
                 .dataNascimento(funcionarioDTO.getData_hora())

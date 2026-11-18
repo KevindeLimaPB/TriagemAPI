@@ -30,6 +30,7 @@ public class MedicoService {
         MedicoEntity medico = MedicoEntity.builder()
                 .crm(medicoDTO.getCrm())
                 .especialidade(medicoDTO.getEspecialidade())
+                .status(medicoDTO.getStatusMedic())
                 .preco_consulta(medicoDTO.getPreco_consulta())
                 .funcionario(entity)
                 .build();

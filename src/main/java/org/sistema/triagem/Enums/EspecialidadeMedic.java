@@ -7,7 +7,7 @@ public enum EspecialidadeMedic {
     CARDIOLOGISTA("cardiologista"),
     CLINICO_GERAL("clínico geral"),
     PEDIATRA("pediatra"),
-    DERMATOLOGISTA("dermatologista"),
+    DERMANTOLOGISTA("dermantologista"),
     ORTOPEDISTA("ortopedista"),
     NEUROLOGISTA("neurologista"),
     GINECOLOGISTA("ginecologista"),

@@ -48,6 +48,7 @@ public class UsuarioService {
                 .orElseThrow(() -> new NotFoundException("CPF não encontrado"));
 
         UsuarioEntity usuario = UsuarioEntity.builder()
+                .nome(usuarioDTO.getNome())
                 .cpf(usuarioEntity.getCpf())
                 .senha(usuarioDTO.getSenha())
                 .build();

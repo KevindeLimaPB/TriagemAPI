@@ -20,6 +20,9 @@ import java.util.List;
 @Builder
 public class UsuarioEntity implements UserDetails {
 
+    @Column
+    private String nome;
+
     @Column(unique = true)
     private String login;
 

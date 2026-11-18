@@ -21,9 +21,6 @@ public class FuncionarioDTO {
 
     private Profissao profissao;
 
-    @NotBlank(message = "Tem que ter um nome")
-    private String nome;
-
     @NotNull
     private Integer idade;
 

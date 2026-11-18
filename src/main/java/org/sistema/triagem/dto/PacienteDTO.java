@@ -22,9 +22,6 @@ public class PacienteDTO {
     @NotNull
     private String usuario;
 
-    @NotBlank(message = "Tem que ter um nome")
-    private String nome;
-
     @NotNull
     private Integer idade;
 

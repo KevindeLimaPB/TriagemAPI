@@ -23,7 +23,6 @@ public class PacienteService {
                 .orElseThrow(() -> new NotFoundException("CPF não encontrado!"));
 
         PacienteEntity pacienteEntity = PacienteEntity.builder()
-                .nome(pacienteDTO.getNome())
                 .idade(pacienteDTO.getIdade())
                 .dataNascimento(pacienteDTO.getData_Nascimento())
                 .peso(pacienteDTO.getPeso())

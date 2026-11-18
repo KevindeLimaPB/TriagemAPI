@@ -42,9 +42,6 @@ public class FuncionarioEntity implements UserDetails {
     private Profissao profissao;
 
     @Column
-    private String nome;
-
-    @Column
     private Integer idade;
 
     @Column(name = "data_nasciemnto", nullable = true)

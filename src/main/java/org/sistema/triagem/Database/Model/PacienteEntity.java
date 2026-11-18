@@ -30,9 +30,6 @@ public class PacienteEntity {
     private List<EnderecoPacEntity> endereco;
 
     @Column
-    private String nome;
-
-    @Column
     private Integer idade;
 
     @Column

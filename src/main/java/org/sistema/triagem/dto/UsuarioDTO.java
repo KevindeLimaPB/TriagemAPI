@@ -13,6 +13,8 @@ import org.sistema.triagem.Enums.EnumUser;
 @AllArgsConstructor
 public class UsuarioDTO {
 
+    @NotBlank
+    private String nome;
 
     private String login;
 
