@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +22,17 @@ public class UsuarioService {
     public List<UsuarioEntity> findAll(){
         return usuarioRepository.findAll();
     }
+
+    public void findByNome(String cpf) throws Exception {
+        if (this.usuarioRepository.existsByCpf(cpf)) {
+            throw new NotFoundException("CPF não encontrado");
+        }
+
+        usuarioRepository.findByNome(cpf);
+
+    }
+
+
 
     public UsuarioEntity save(UsuarioDTO usuarioDTO) throws Conflict {
         if (this.usuarioRepository.existsByCpf(usuarioDTO.getCpf())) {

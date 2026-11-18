@@ -31,4 +31,7 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, String> 
     @Query("UPDATE UsuarioEntity u  SET u.senha = :senha WHERE u.cpf = :cpf")
     Integer updatePassword(@Param("senha") String senha, @Param("cpf") String cpf);
 
+    @Query("SELECT u.nome FROM UsuarioEntity u WHERE u.cpf = :cpf")
+    Optional<UsuarioEntity> findByNome(@Param("cpf") String cpf);
+
 }
