@@ -57,6 +57,8 @@ public class SecurityConfiguration {
 
                         .requestMatchers(HttpMethod.PUT, "/users").permitAll()
 
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
                         .requestMatchers(
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
