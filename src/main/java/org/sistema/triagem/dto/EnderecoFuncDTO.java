@@ -22,6 +22,9 @@ public class EnderecoFuncDTO {
     @NotBlank
     private String rua;
 
+    @NotNull
+    private Integer numero;
+
     @NotBlank
     private String cep;
 

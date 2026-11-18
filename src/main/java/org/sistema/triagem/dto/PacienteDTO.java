@@ -6,8 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.sistema.triagem.Enums.SexoBiologico;
 
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -26,6 +28,13 @@ public class PacienteDTO {
     @NotNull
     private Integer idade;
 
-    @NotBlank
+    @NotNull
+    private BigDecimal peso;
+    @NotNull
+    private BigDecimal altura;
+
+    private SexoBiologico sexoBiologico;
+
+    @NotNull
     private LocalDate data_Nascimento;
 }

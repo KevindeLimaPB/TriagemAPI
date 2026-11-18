@@ -25,6 +25,7 @@ public class EnderecoPacService {
         EnderecoPacEntity enderecoPacEntity = EnderecoPacEntity.builder()
                 .paciente(paciente)
                 .estado(enderecoPacDTO.getEstado())
+                .cidade(enderecoPacDTO.getCidade())
                 .cep(enderecoPacDTO.getCep())
                 .rua(enderecoPacDTO.getRua())
                 .numero(enderecoPacDTO.getNumero())

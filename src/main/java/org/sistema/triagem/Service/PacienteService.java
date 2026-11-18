@@ -26,6 +26,9 @@ public class PacienteService {
                 .nome(pacienteDTO.getNome())
                 .idade(pacienteDTO.getIdade())
                 .dataNascimento(pacienteDTO.getData_Nascimento())
+                .peso(pacienteDTO.getPeso())
+                .altura(pacienteDTO.getAltura())
+                .sexoBiologico(pacienteDTO.getSexoBiologico())
                 .usuario(usuarioEntity)
                 .build();
 

@@ -25,6 +25,7 @@ public class EnderecoFuncService {
                 .estado(enderecoDTO.getEstado())
                 .cidade(enderecoDTO.getCidade())
                 .rua(enderecoDTO.getRua())
+                .numero(enderecoDTO.getNumero())
                 .cep(enderecoDTO.getCep())
                 .funcionario_id(funcionarioEntity)
                 .build();
