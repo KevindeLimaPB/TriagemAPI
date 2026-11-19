@@ -23,12 +23,11 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    public void findByNome(String cpf) throws Exception {
-        if (this.usuarioRepository.existsByCpf(cpf)) {
-            throw new NotFoundException("CPF não encontrado");
-        }
+    public String findByNome(String cpf) throws Exception {
+        UsuarioEntity usuarioEntity = usuarioRepository.findByCPF(cpf)
+                .orElseThrow(() -> new NotFoundException("CPF não encontrado."));
 
-        usuarioRepository.findByNome(cpf);
+       return usuarioEntity.getNome();
 
     }
 

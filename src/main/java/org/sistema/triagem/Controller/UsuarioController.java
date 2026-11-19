@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -30,6 +31,12 @@ public class UsuarioController {
     @ResponseStatus(HttpStatus.OK)
     public List<UsuarioEntity> findAll(){
         return usuarioService.findAll();
+    }
+
+    @GetMapping("/find")
+    @ResponseStatus(HttpStatus.OK)
+    public String findByName(@RequestParam String cpf) throws Exception {
+        return usuarioService.findByNome(cpf);
     }
 
     @PutMapping

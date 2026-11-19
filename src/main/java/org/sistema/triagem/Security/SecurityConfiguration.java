@@ -54,6 +54,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/med").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/users/find").permitAll()
 
                         .requestMatchers(HttpMethod.PUT, "/users").permitAll()
 
