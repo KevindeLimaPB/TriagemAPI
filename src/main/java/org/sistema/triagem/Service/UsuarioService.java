@@ -59,12 +59,9 @@ public class UsuarioService {
         UsuarioEntity usuarioEntity = usuarioRepository.findByCPF(usuarioDTO.getCpf())
                 .orElseThrow(() -> new NotFoundException("CPF não encontrado"));
 
-        UsuarioEntity usuario = UsuarioEntity.builder()
-                .cpf(usuarioEntity.getCpf())
-                .senha(usuarioDTO.getSenha())
-                .build();
+        usuarioEntity.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
 
-        usuarioRepository.updatePassword(usuario.getCpf(), usuario.getSenha());
+        usuarioRepository.save(usuarioEntity);
 
     }
 }
