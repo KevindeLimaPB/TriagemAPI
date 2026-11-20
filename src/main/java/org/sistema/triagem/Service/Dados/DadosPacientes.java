@@ -47,7 +47,11 @@ public class DadosPacientes {
         pacienteRepository.save(paciente);
 
         Telefone_pacEntity telefonePac = telefonePacRepository.findByPaciente(paciente)
-                .orElseThrow(() -> new NotFoundException("Telefone não encontrado!"));
+                .orElseGet(() -> {
+                    Telefone_pacEntity telefonePaciente = new Telefone_pacEntity();
+                    telefonePaciente.setPaciente(paciente);
+                    return telefonePaciente;
+                });
 
         telefonePac.setTelefone(dadosPacientesDTO.getTelefone());
 
