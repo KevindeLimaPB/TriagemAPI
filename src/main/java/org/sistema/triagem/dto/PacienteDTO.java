@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.sistema.triagem.Enums.Generos;
 import org.sistema.triagem.Enums.SexoBiologico;
 
 
@@ -26,11 +27,13 @@ public class PacienteDTO {
     private Integer idade;
 
     @NotNull
-    private BigDecimal peso;
+    private Double peso;
     @NotNull
-    private BigDecimal altura;
+    private Double altura;
 
     private SexoBiologico sexoBiologico;
+
+    private Generos generos;
 
     @NotNull
     private LocalDate data_Nascimento;

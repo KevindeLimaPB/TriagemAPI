@@ -48,8 +48,11 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/telfunc").permitAll()
 
                         .requestMatchers(HttpMethod.POST, "/endpac").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/pac").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/pac").hasRole("CLIENTE")
                         .requestMatchers(HttpMethod.POST, "/telpac").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/pac/perfil").hasRole("CLIENTE")
+                        .requestMatchers(HttpMethod.POST, "/pac/perfil/find").hasRole("CLIENTE")
+
 
                         .requestMatchers(HttpMethod.POST, "/med").permitAll()
 

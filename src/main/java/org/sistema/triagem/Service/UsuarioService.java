@@ -31,8 +31,6 @@ public class UsuarioService {
 
     }
 
-
-
     public UsuarioEntity save(UsuarioDTO usuarioDTO) throws Conflict {
         if (this.usuarioRepository.existsByCpf(usuarioDTO.getCpf())) {
             throw new Conflict("CPF inválidos");
