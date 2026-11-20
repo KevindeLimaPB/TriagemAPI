@@ -15,12 +15,20 @@ public class DadosPacientesController {
    private final DadosPacientes dadosPacientes;
 
     @PutMapping("/perfil")
-    public ResponseEntity<Void> atualizarPerfil(@RequestBody DadosPacientesDTO dadosPacientesDTO) {
+    public ResponseEntity<String> atualizarPerfil(
+            @RequestBody DadosPacientesDTO dadosPacientesDTO) {
+
         try {
             dadosPacientes.perfilPaciente(dadosPacientesDTO);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok("Perfil atualizado!");
+
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            e.printStackTrace();
+
+            return ResponseEntity
+                    .status(500)
+                    .body("ERRO: " + e.getClass().getName()
+                            + " - " + e.getMessage());
         }
     }
 
