@@ -33,8 +33,11 @@ public class DadosPacientes {
         usuarioRepository.save(usuario);
 
         PacienteEntity paciente = pacienteRepository.findByUsuario(usuario)
-                .orElseThrow(() -> new Conflict("Paciente não encontrado!"));
-
+                .orElseGet(() -> {
+                    PacienteEntity novoPaciente = new PacienteEntity();
+                    novoPaciente.setUsuario(usuario);
+                    return novoPaciente;
+                });
         paciente.setAltura(dadosPacientesDTO.getAltura());
         paciente.setPeso(dadosPacientesDTO.getPeso());
         paciente.setDataNascimento(dadosPacientesDTO.getDataNascimento());
