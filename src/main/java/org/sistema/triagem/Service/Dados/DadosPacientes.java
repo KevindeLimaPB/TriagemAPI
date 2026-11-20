@@ -48,30 +48,40 @@ public class DadosPacientes {
     }
 
 
+
     public DadosPacientesDTO obterDadosPorCpf(String cpf) throws NotFoundException {
+
         UsuarioEntity usuario = usuarioRepository.findByCPF(cpf)
                 .orElseThrow(() -> new NotFoundException("CPF não encontrado!"));
 
-
         PacienteEntity paciente = pacienteRepository.findByUsuario(usuario)
-                .orElse(new PacienteEntity()); // Evita erro caso ainda não tenha preenchido
-
-
-        Telefone_pacEntity telefonePac = telefonePacRepository.findByPaciente(paciente)
-                .orElse(new Telefone_pacEntity());
+                .orElse(null);
 
 
         DadosPacientesDTO dto = new DadosPacientesDTO();
+
         dto.setCpf(usuario.getCpf());
         dto.setNome(usuario.getNome());
         dto.setEmail(usuario.getLogin());
-        dto.setTelefone(telefonePac.getTelefone());
-        dto.setDataNascimento(paciente.getDataNascimento());
-        dto.setSexoBiologico(paciente.getSexoBiologico());
-        dto.setGenero(paciente.getGeneros());
-        dto.setPeso(paciente.getPeso());
-        dto.setAltura(paciente.getAltura());
+
+        if (paciente != null) {
+
+            dto.setDataNascimento(paciente.getDataNascimento());
+            dto.setSexoBiologico(paciente.getSexoBiologico());
+            dto.setGenero(paciente.getGeneros());
+            dto.setPeso(paciente.getPeso());
+            dto.setAltura(paciente.getAltura());
+
+            Telefone_pacEntity telefonePac = telefonePacRepository
+                    .findByPaciente(paciente)
+                    .orElse(null);
+
+            if (telefonePac != null) {
+                dto.setTelefone(telefonePac.getTelefone());
+            }
+        }
 
         return dto;
     }
+
 }
