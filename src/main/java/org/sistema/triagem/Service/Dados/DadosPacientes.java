@@ -58,27 +58,20 @@ public class DadosPacientes {
         telefonePacRepository.save(telefonePac);
     }
 
-
-
     public DadosPacientesDTO obterDadosPorCpf(String cpf) throws NotFoundException {
 
-        // Busca o usuário pelo CPF
         UsuarioEntity usuario = usuarioRepository.findByCPF(cpf)
                 .orElseThrow(() -> new NotFoundException("CPF não encontrado!"));
 
-        // Busca o paciente vinculado ao usuário
         PacienteEntity paciente = pacienteRepository.findByUsuario(usuario)
                 .orElse(null);
 
-        // Cria o DTO
         DadosPacientesDTO dto = new DadosPacientesDTO();
 
-        // Dados da tabela usuario
         dto.setCpf(usuario.getCpf());
         dto.setNome(usuario.getNome());
         dto.setEmail(usuario.getLogin());
 
-        // Se existir paciente, carrega seus dados
         if (paciente != null) {
 
             dto.setDataNascimento(paciente.getDataNascimento());

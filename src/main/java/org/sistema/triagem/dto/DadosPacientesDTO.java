@@ -17,7 +17,7 @@ public class DadosPacientesDTO {
     private String telefone;
     private LocalDate dataNascimento;
     private SexoBiologico sexoBiologico;
-    private Generos Genero;
+    private Generos genero;
     private Double peso;
     private Double altura;
 
