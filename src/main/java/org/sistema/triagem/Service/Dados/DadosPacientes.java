@@ -20,30 +20,34 @@ public class DadosPacientes {
     private final UsuarioRepository usuarioRepository;
     private final Telefone_pacRepository telefonePacRepository;
     private final PacienteRepository pacienteRepository;
-
     @Transactional
-    public void perfilPaciente(DadosPacientesDTO dadosPacientesDTO) throws NotFoundException, Conflict {
+    public void perfilPaciente(DadosPacientesDTO dadosPacientesDTO)
+            throws NotFoundException, Conflict {
+
         UsuarioEntity usuario = usuarioRepository.findByCPF(dadosPacientesDTO.getCpf())
                 .orElseThrow(() -> new NotFoundException("CPF não encontrado!"));
 
         usuario.setNome(dadosPacientesDTO.getNome());
         usuario.setLogin(dadosPacientesDTO.getEmail());
+
         usuarioRepository.save(usuario);
 
-        PacienteEntity paciente = pacienteRepository.findByUsuarioCPF(usuario.getCpf())
-                .orElseThrow(() -> new Conflict("CPF não encontrado!"));
+        PacienteEntity paciente = pacienteRepository.findByUsuario(usuario)
+                .orElseThrow(() -> new Conflict("Paciente não encontrado!"));
 
         paciente.setAltura(dadosPacientesDTO.getAltura());
         paciente.setPeso(dadosPacientesDTO.getPeso());
         paciente.setDataNascimento(dadosPacientesDTO.getDataNascimento());
         paciente.setSexoBiologico(dadosPacientesDTO.getSexoBiologico());
         paciente.setGeneros(dadosPacientesDTO.getGenero());
+
         pacienteRepository.save(paciente);
 
-        Telefone_pacEntity telefonePac = telefonePacRepository.findByPacienteID(paciente.getId())
-                .orElseThrow(() -> new NotFoundException("não encontrado!"));
+        Telefone_pacEntity telefonePac = telefonePacRepository.findByPaciente(paciente)
+                .orElseThrow(() -> new NotFoundException("Telefone não encontrado!"));
 
         telefonePac.setTelefone(dadosPacientesDTO.getTelefone());
+
         telefonePacRepository.save(telefonePac);
     }
 
