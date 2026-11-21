@@ -8,7 +8,6 @@ import org.sistema.triagem.Database.Model.UsuarioEntity;
 import org.sistema.triagem.Database.Repository.PacienteRepository;
 import org.sistema.triagem.Database.Repository.Telefone_pacRepository;
 import org.sistema.triagem.Database.Repository.UsuarioRepository;
-import org.sistema.triagem.Exception.Conflict;
 import org.sistema.triagem.Exception.NotFoundException;
 import org.sistema.triagem.dto.DadosPacientesDTO;
 import org.springframework.stereotype.Service;
@@ -20,9 +19,10 @@ public class DadosPacientes {
     private final UsuarioRepository usuarioRepository;
     private final Telefone_pacRepository telefonePacRepository;
     private final PacienteRepository pacienteRepository;
+
     @Transactional
     public void perfilPaciente(DadosPacientesDTO dadosPacientesDTO)
-            throws NotFoundException, Conflict {
+            throws NotFoundException {
 
         UsuarioEntity usuario = usuarioRepository.findByCPF(dadosPacientesDTO.getCpf())
                 .orElseThrow(() -> new NotFoundException("CPF não encontrado!"));
