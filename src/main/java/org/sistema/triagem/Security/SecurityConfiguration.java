@@ -44,7 +44,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/register/login").permitAll()
 
                         .requestMatchers(HttpMethod.POST, "/func").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/func/nome").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/func/nome").authenticated()
                         .requestMatchers(HttpMethod.POST, "/endfunc").permitAll()
                         .requestMatchers(HttpMethod.POST, "/telfunc").permitAll()
 
