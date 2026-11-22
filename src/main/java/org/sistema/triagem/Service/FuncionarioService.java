@@ -41,12 +41,23 @@ public class FuncionarioService {
     }
 
     public String obterNomePorCpf(DadosMedicosDTO dadosMedicosDTO) throws Exception {
-        UsuarioEntity usuarioEntity = usuarioRepository.findByCPF(dadosMedicosDTO.getCpf())
-                .orElseThrow(() -> new NotFoundException("ID não encontrada"));
+        String identificador = dadosMedicosDTO.getCpf(); // aqui pode vir o valor que estava no token
+
+        // Tenta buscar primeiro se existe um funcionário com essa matrícula
+        FuncionarioEntity funcionario = funcionarioRepository.findByMatriculas(identificador);
+
+        UsuarioEntity usuarioEntity;
+
+        if (funcionario != null) {
+            // Se achou pelo funcionário/matrícula, pega o usuário vinculado a ele
+            usuarioEntity = funcionario.getUsuario();
+        } else {
+            // Se não achou por matrícula, tenta buscar direto na tabela de usuário pelo CPF
+            usuarioEntity = usuarioRepository.findByCPF(identificador)
+                    .orElseThrow(() -> new NotFoundException("Usuário não encontrado para o identificador: " + identificador));
+        }
 
         return usuarioEntity.getNome();
-
-
     }
 
 }

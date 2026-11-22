@@ -12,4 +12,6 @@ public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, 
     @Query("SELECT f FROM FuncionarioEntity f WHERE f.matricula = :matricula")
     UserDetails findByMatricula(@Param("matricula") String matricula);
 
+    @Query("SELECT f FROM FuncionarioEntity f WHERE f.matricula = :matricula")
+    FuncionarioEntity findByMatriculas(@Param("matricula") String matricula);
 }
