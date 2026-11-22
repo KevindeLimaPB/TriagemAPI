@@ -8,6 +8,7 @@ import org.sistema.triagem.Database.Repository.UsuarioRepository;
 import org.sistema.triagem.Enums.EnumUser;
 import org.sistema.triagem.Exception.NotAuthorized;
 import org.sistema.triagem.Exception.NotFoundException;
+import org.sistema.triagem.dto.DadosMedicosDTO;
 import org.sistema.triagem.dto.FuncionarioDTO;
 import org.sistema.triagem.dto.UsuarioDTO;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,15 @@ public class FuncionarioService {
                 .build();
 
         return  funcionarioRepository.save(funcionarioEntity);
+    }
+
+    public String obterNomePorCpf(DadosMedicosDTO dadosMedicosDTO) throws Exception {
+        UsuarioEntity usuarioEntity = usuarioRepository.findByCPF(dadosMedicosDTO.getCpf())
+                .orElseThrow(() -> new NotFoundException("ID não encontrada"));
+
+        return usuarioEntity.getNome();
+
+
     }
 
 }
