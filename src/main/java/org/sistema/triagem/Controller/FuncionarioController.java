@@ -32,8 +32,15 @@ public class FuncionarioController {
     }
 
     @GetMapping("/nome")
-    public ResponseEntity<String> obterNomePorCpf(DadosMedicosDTO dadosMedicosDTO) {
+    public ResponseEntity<String> obterNomeLogado(Principal principal) {
         try {
+            // Pega o identificador (matrícula ou CPF) direto de dentro do token JWT
+            String identificador = principal.getName();
+
+            // Coloca no DTO para reaproveitar a lógica do seu service que trata ambos os casos
+            DadosMedicosDTO dadosMedicosDTO = new DadosMedicosDTO();
+            dadosMedicosDTO.setCpf(identificador);
+
             String nome = funcionarioService.obterNomePorCpf(dadosMedicosDTO);
             return ResponseEntity.ok(nome);
         } catch (Exception e) {

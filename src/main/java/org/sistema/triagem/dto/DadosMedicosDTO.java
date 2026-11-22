@@ -1,6 +1,7 @@
 package org.sistema.triagem.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.sistema.triagem.Enums.EnumUser;
 import org.sistema.triagem.Enums.EspecialidadeMedic;
 import org.sistema.triagem.Enums.Profissao;
@@ -8,6 +9,7 @@ import org.sistema.triagem.Enums.Profissao;
 import java.math.BigDecimal;
 
 @Getter
+@Setter
 public class DadosMedicosDTO {
 
     private String nome;
