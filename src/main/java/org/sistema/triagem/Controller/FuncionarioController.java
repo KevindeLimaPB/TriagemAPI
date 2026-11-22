@@ -31,7 +31,7 @@ public class FuncionarioController {
         return funcionarioService.save(funcionarioDTO);
     }
 
-    @PostMapping("/obter-nome")
+    @PostMapping("/nome")
     public ResponseEntity<String> obterNomePorCpf(@RequestBody DadosMedicosDTO dadosMedicosDTO) {
         try {
             String nome = funcionarioService.obterNomePorCpf(dadosMedicosDTO);
