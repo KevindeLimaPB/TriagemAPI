@@ -32,7 +32,7 @@ public class FuncionarioController {
     }
 
     @GetMapping("/nome")
-    public ResponseEntity<String> obterNomePorCpf(@RequestBody DadosMedicosDTO dadosMedicosDTO) {
+    public ResponseEntity<String> obterNomePorCpf(DadosMedicosDTO dadosMedicosDTO) {
         try {
             String nome = funcionarioService.obterNomePorCpf(dadosMedicosDTO);
             return ResponseEntity.ok(nome);
