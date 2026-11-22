@@ -50,6 +50,7 @@ public class MedicoService {
         FuncionarioEntity funcionario = new FuncionarioEntity();
         funcionario.setMatricula(dadosMedicosDTO.getMatricula());
         funcionario.setUsuario(usuarioSalvo);
+        funcionario.setProfissao(dadosMedicosDTO.getProfissao());
         FuncionarioEntity func = funcionarioRepository.save(funcionario);
 
         EnderecoFuncEntity enderecoFunc = new EnderecoFuncEntity();
