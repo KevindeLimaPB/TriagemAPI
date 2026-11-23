@@ -20,6 +20,9 @@ public class EnderecoFuncDTO {
     private String cidade;
 
     @NotBlank
+    private String Bairro;
+
+    @NotBlank
     private String rua;
 
     @NotNull

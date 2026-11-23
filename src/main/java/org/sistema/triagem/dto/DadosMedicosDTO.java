@@ -23,6 +23,8 @@ public class DadosMedicosDTO {
     private String crm;
     private EspecialidadeMedic especialidade;
     private String cidade;
+    private String bairro;
+    private String rua;
     private String email;
     private BigDecimal precoConsulta;
 

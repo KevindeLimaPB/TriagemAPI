@@ -23,8 +23,6 @@ public class FuncionarioController {
 
     private final FuncionarioService funcionarioService;
 
-    private final MedicoService medicoService;
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public FuncionarioEntity save(@RequestBody @Valid FuncionarioDTO funcionarioDTO) throws Exception {
@@ -34,7 +32,6 @@ public class FuncionarioController {
     @GetMapping("/nome")
     public ResponseEntity<String> obterNomeLogado(Principal principal) {
         try {
-            // Pega o identificador (matrícula ou CPF) direto de dentro do token JWT
             String identificador = principal.getName();
 
             // Coloca no DTO para reaproveitar a lógica do seu service que trata ambos os casos
