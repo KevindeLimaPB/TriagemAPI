@@ -26,9 +26,6 @@ public class MedicoDTO {
     @NotNull
     private EspecialidadeMedic especialidade;
 
-    @NotNull
-    private StatusMedic statusMedic;
-
     private String apresentacao;
 
     @NotNull
