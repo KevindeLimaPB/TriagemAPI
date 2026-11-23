@@ -10,12 +10,9 @@ import org.sistema.triagem.Database.Repository.EnderecoFuncRepository;
 import org.sistema.triagem.Database.Repository.FuncionarioRepository;
 import org.sistema.triagem.Database.Repository.MedicoRepository;
 import org.sistema.triagem.Database.Repository.UsuarioRepository;
-import org.sistema.triagem.Enums.Profissao;
 import org.sistema.triagem.Exception.Conflict;
-import org.sistema.triagem.Exception.NotAuthorized;
 import org.sistema.triagem.Exception.NotFoundException;
 import org.sistema.triagem.dto.DadosMedicosDTO;
-import org.sistema.triagem.dto.MedicoDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +31,7 @@ public class MedicoService {
     private final FuncionarioRepository funcionarioRepository;
 
     @Transactional
-    public MedicoEntity save(DadosMedicosDTO dadosMedicosDTO) throws Conflict, NotFoundException {
+    public MedicoEntity save(DadosMedicosDTO dadosMedicosDTO) throws Conflict {
         if (this.usuarioRepository.existsByCpf(dadosMedicosDTO.getCpf())) {
             throw new Conflict("Já existe um usuário cadastrado com este CPF.");
         }
@@ -58,11 +55,24 @@ public class MedicoService {
         enderecoFunc.setBairro(dadosMedicosDTO.getBairro());
         enderecoFunc.setRua(dadosMedicosDTO.getRua());
         enderecoFunc.setFuncionario_id(func);
+        enderecoFuncRepository.save(enderecoFunc);
 
         MedicoEntity medico = new MedicoEntity();
-        medico.setCrm(dadosMedicosDTO.getCrm());
+
+        if (dadosMedicosDTO.getCrm() != null){
+            throw  new Conflict("CRM inválido, coloque outro valor");
+        }else {
+            medico.setCrm(dadosMedicosDTO.getCrm());
+        }
+
         medico.setEspecialidade(dadosMedicosDTO.getEspecialidade());
         medico.setPreco_consulta(dadosMedicosDTO.getPrecoConsulta());
+
+        String apresention = dadosMedicosDTO.getApresentacao() == null || dadosMedicosDTO.getApresentacao().isBlank() ?
+                "Profissional cadastrado na plataforma. Entre em contato para saber mais." :
+                dadosMedicosDTO.getApresentacao();
+
+        medico.setApresentacao(apresention);
         medico.setFuncionario(func);
 
         return medicoRepository.save(medico);

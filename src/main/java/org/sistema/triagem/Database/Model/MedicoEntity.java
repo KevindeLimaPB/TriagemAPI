@@ -29,6 +29,9 @@ public class MedicoEntity {
     @Column
     private BigDecimal preco_consulta;
 
+    @Column(columnDefinition = "TEXT")
+    private String apresentacao;
+
     @ManyToOne
     @JoinColumn(name = "funcionario_matricula")
     private FuncionarioEntity funcionario;

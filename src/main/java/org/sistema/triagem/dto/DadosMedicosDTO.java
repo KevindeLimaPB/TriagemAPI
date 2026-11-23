@@ -27,5 +27,6 @@ public class DadosMedicosDTO {
     private String rua;
     private String email;
     private BigDecimal precoConsulta;
+    private String apresentacao;
 
 }

@@ -29,6 +29,8 @@ public class MedicoDTO {
     @NotNull
     private StatusMedic statusMedic;
 
+    private String apresentacao;
+
     @NotNull
     private BigDecimal preco_consulta;
 
