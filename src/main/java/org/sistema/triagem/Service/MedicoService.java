@@ -55,6 +55,8 @@ public class MedicoService {
 
         EnderecoFuncEntity enderecoFunc = new EnderecoFuncEntity();
         enderecoFunc.setCidade(dadosMedicosDTO.getCidade());
+        enderecoFunc.setBairro(dadosMedicosDTO.getBairro());
+        enderecoFunc.setRua(dadosMedicosDTO.getRua());
         enderecoFunc.setFuncionario_id(func);
 
         MedicoEntity medico = new MedicoEntity();

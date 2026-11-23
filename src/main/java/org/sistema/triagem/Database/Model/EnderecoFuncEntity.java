@@ -25,6 +25,8 @@ public class EnderecoFuncEntity {
 
     @Column
     private String cidade;
+    @Column
+    private String bairro;
 
     @Column
     private String rua;
