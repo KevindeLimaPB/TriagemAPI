@@ -23,9 +23,6 @@ public class MedicoEntity {
     @Enumerated(EnumType.STRING)
     private EspecialidadeMedic especialidade;
 
-    @Enumerated(EnumType.STRING)
-    private StatusMedic status;
-
     @Column
     private BigDecimal preco_consulta;
 
