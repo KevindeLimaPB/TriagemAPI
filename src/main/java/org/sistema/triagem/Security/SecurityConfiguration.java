@@ -55,7 +55,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/pac/perfil/find").hasRole("CLIENTE")
 
                         .requestMatchers(HttpMethod.POST, "/med").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/med/buscar").hasRole("CLIENTE")
+                        .requestMatchers(HttpMethod.GET, "/med/buscar").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users/find/**").permitAll()
