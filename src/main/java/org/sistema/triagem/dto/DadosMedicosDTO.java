@@ -20,6 +20,8 @@ public class DadosMedicosDTO {
     private String matricula;
     private Profissao profissao;
 
+    private String telefone;
+
     private String crm;
     private EspecialidadeMedic especialidade;
     private String cidade;

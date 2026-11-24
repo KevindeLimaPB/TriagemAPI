@@ -2,14 +2,8 @@ package org.sistema.triagem.Service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.sistema.triagem.Database.Model.EnderecoFuncEntity;
-import org.sistema.triagem.Database.Model.FuncionarioEntity;
-import org.sistema.triagem.Database.Model.MedicoEntity;
-import org.sistema.triagem.Database.Model.UsuarioEntity;
-import org.sistema.triagem.Database.Repository.EnderecoFuncRepository;
-import org.sistema.triagem.Database.Repository.FuncionarioRepository;
-import org.sistema.triagem.Database.Repository.MedicoRepository;
-import org.sistema.triagem.Database.Repository.UsuarioRepository;
+import org.sistema.triagem.Database.Model.*;
+import org.sistema.triagem.Database.Repository.*;
 import org.sistema.triagem.Exception.Conflict;
 import org.sistema.triagem.Exception.NotFoundException;
 import org.sistema.triagem.dto.DadosMedicosDTO;
@@ -27,6 +21,8 @@ public class MedicoService {
     private final UsuarioRepository usuarioRepository;
 
     private final PasswordEncoder passwordEncoder;
+
+    private final Telefone_FuncRepository telefoneFuncRepository;
 
     private final FuncionarioRepository funcionarioRepository;
 
@@ -57,6 +53,18 @@ public class MedicoService {
         enderecoFunc.setFuncionario_id(func);
         enderecoFuncRepository.save(enderecoFunc);
 
+        String telefone = dadosMedicosDTO.getTelefone();
+
+        if (telefone != null && !telefone.isBlank()) {
+            if (!telefone.matches("\\(\\d{2}\\) \\d{5}-\\d{4}")) {
+                throw new Conflict("Telefone inválido. Use o formato (00) 00000-0000");
+            }
+
+            Telefone_FuncEntity telefoneFunc = new Telefone_FuncEntity();
+            telefoneFunc.setTelefone(telefone);
+            telefoneFunc.setFuncionario(func);
+            telefoneFuncRepository.save(telefoneFunc);
+        }
         MedicoEntity medico = new MedicoEntity();
 
         if (dadosMedicosDTO.getCrm() == null || dadosMedicosDTO.getCrm().isBlank()) {
