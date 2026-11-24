@@ -59,12 +59,14 @@ public class MedicoService {
 
         MedicoEntity medico = new MedicoEntity();
 
-        if (dadosMedicosDTO.getCrm() != null){
-            throw  new Conflict("CRM inválido, coloque outro valor");
-        }else {
-            medico.setCrm(dadosMedicosDTO.getCrm());
+        if (dadosMedicosDTO.getCrm() == null || dadosMedicosDTO.getCrm().isBlank()) {
+            throw new Conflict("Informe o CRM.");
+        }
+        if (medicoRepository.existsById(dadosMedicosDTO.getCrm())) {
+            throw new Conflict("Já existe um médico cadastrado com este CRM.");
         }
 
+        medico.setCrm(dadosMedicosDTO.getCrm());
         medico.setEspecialidade(dadosMedicosDTO.getEspecialidade());
         medico.setPreco_consulta(dadosMedicosDTO.getPrecoConsulta());
 
