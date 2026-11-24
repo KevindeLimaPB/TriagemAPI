@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.sistema.triagem.Database.Model.FuncionarioEntity; // Importe a entidade de funcionário
 import org.sistema.triagem.Database.Model.UsuarioEntity;
 import org.sistema.triagem.Security.TokenService;
-import org.sistema.triagem.dto.AuthenticationDTO;
-import org.sistema.triagem.dto.LoginResponse;
+import org.sistema.triagem.dto.Records.AuthenticationDTO;
+import org.sistema.triagem.dto.Records.LoginResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
