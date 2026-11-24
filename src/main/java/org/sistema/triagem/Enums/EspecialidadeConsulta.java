@@ -7,7 +7,7 @@ public enum EspecialidadeConsulta {
     CARDIOLOGIA("cardiologia"),
     CLINICA_GERAL("clínica geral"),
     PEDIATRA("pediatra"),
-    DERMATOLOGIA("dermantologia"),
+    DERMATOLOGIA("dermatologia"),
     ORTOPEDIA("ortopedia"),
     NEUROLOGIA("neurologia"),
     GINECOLOGIA("ginecologia"),

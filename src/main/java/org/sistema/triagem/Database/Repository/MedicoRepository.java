@@ -2,6 +2,7 @@ package org.sistema.triagem.Database.Repository;
 
 import org.sistema.triagem.Database.Model.MedicoEntity;
 import org.sistema.triagem.Enums.EspecialidadeConsulta;
+import org.sistema.triagem.Enums.EspecialidadeMedic;
 import org.sistema.triagem.dto.Records.MedicoBuscaDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,6 +23,6 @@ public interface MedicoRepository extends JpaRepository<MedicoEntity, String> {
     WHERE (:especialidade IS NULL OR m.especialidade = :especialidade)
       AND (:cidade IS NULL OR e.cidade = :cidade)
     """)
-    List<MedicoBuscaDTO> buscar(@Param("especialidade") EspecialidadeConsulta especialidade,
+    List<MedicoBuscaDTO> buscar(@Param("especialidade") EspecialidadeMedic especialidade,
                                 @Param("cidade") String cidade);
 }

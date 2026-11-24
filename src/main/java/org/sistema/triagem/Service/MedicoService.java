@@ -4,11 +4,16 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.sistema.triagem.Database.Model.*;
 import org.sistema.triagem.Database.Repository.*;
+import org.sistema.triagem.Enums.EspecialidadeConsulta;
+import org.sistema.triagem.Enums.EspecialidadeMedic;
 import org.sistema.triagem.Exception.Conflict;
 import org.sistema.triagem.Exception.NotFoundException;
 import org.sistema.triagem.dto.DadosMedicosDTO;
+import org.sistema.triagem.dto.Records.MedicoBuscaDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -87,6 +92,12 @@ public class MedicoService {
 
         return medicoRepository.save(medico);
 
+    }
+
+
+    public List<MedicoBuscaDTO> buscar(EspecialidadeMedic especialidade, String cidade) {
+        String cidadeFiltro = (cidade == null || cidade.isBlank()) ? null : cidade.trim();
+        return medicoRepository.buscar(especialidade, cidadeFiltro);
     }
 
 
