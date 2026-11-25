@@ -24,6 +24,9 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, String> 
     @Query(value = "SELECT * FROM usuario WHERE usuario.cpf = ?1", nativeQuery = true)
     Optional<UsuarioEntity> findByCPF(String cpf);
 
+    @Query(value = "SELECT * FROM usuario WHERE usuario.login = ?1", nativeQuery = true)
+    Optional<UsuarioEntity> findByEmail(String email);
+
     boolean existsByCpf(String cpf);
 
     @Modifying

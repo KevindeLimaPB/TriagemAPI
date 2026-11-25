@@ -54,8 +54,8 @@ public class UsuarioService {
     }
 
     public void updatePassword(UsuarioDTO usuarioDTO) throws NotFoundException {
-        UsuarioEntity usuarioEntity = usuarioRepository.findByCPF(usuarioDTO.getCpf())
-                .orElseThrow(() -> new NotFoundException("CPF não encontrado"));
+        UsuarioEntity usuarioEntity = usuarioRepository.findByEmail(usuarioDTO.getLogin())
+                .orElseThrow(() -> new NotFoundException("Email não encontrado"));
 
         usuarioEntity.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
 
