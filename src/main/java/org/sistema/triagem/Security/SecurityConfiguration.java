@@ -1,4 +1,3 @@
-
 package org.sistema.triagem.Security;
 
 import lombok.RequiredArgsConstructor;
@@ -39,6 +38,8 @@ public class SecurityConfiguration {
                 )
 
                 .authorizeHttpRequests(authorize -> authorize
+
+                        .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
 
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "/register/login").permitAll()

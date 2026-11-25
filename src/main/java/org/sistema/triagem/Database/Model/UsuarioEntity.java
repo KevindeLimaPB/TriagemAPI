@@ -1,6 +1,7 @@
 package org.sistema.triagem.Database.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 import org.jspecify.annotations.Nullable;
 import org.sistema.triagem.Enums.EnumUser;
@@ -24,6 +25,7 @@ public class UsuarioEntity implements UserDetails {
     private String nome;
 
     @Column(unique = true)
+    @Email(message = "E-mail inválido")
     private String login;
 
     @Column

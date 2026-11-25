@@ -16,6 +16,8 @@ public class UsuarioDTO {
     @NotBlank
     private String nome;
 
+    @NotBlank
+    @Email
     private String login;
 
     @NotBlank(message = "A senha não pode ser vazia.")
