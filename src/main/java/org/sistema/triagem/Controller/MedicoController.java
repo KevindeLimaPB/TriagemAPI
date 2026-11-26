@@ -11,6 +11,7 @@ import org.sistema.triagem.dto.DadosMedicosDTO;
 import org.sistema.triagem.dto.MedicoDTO;
 import org.sistema.triagem.dto.Records.MedicoBuscaDTO;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,16 @@ public class MedicoController {
     @ResponseStatus(HttpStatus.CREATED)
     public MedicoEntity save(@Valid @RequestBody DadosMedicosDTO dadosMedicosDTO) throws Exception {
         return medicoService.save(dadosMedicosDTO);
+    }
+
+    @GetMapping("/perfil")
+    public ResponseEntity<MedicoEntity> buscarPerfil(@RequestParam String crm) throws Exception {
+        // Exemplo buscando pelo CRM ou ID do médico logado
+        MedicoEntity medico = medicoService.buscarPorCrm(crm);
+        if (medico == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(medico);
     }
 
     @GetMapping("/buscar")

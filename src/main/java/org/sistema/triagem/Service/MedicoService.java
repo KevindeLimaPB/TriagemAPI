@@ -100,6 +100,38 @@ public class MedicoService {
         return medicoRepository.buscar(especialidade, cidadeFiltro);
     }
 
+    public MedicoEntity buscarPorCrm(String crm) throws  NotFoundException{
+        return medicoRepository.findById(crm)
+                .orElseThrow(() -> new NotFoundException("Médico não encontrado com o CRM: " + crm));
+    }
+
+    @Transactional
+    public MedicoEntity atualizar(DadosMedicosDTO dadosMedicosDTO) throws NotFoundException {
+        MedicoEntity medico = buscarPorCrm(dadosMedicosDTO.getCrm());
+
+        // Atualiza os dados do médico
+        medico.setEspecialidade(dadosMedicosDTO.getEspecialidade());
+        medico.setPreco_consulta(dadosMedicosDTO.getPrecoConsulta());
+
+        if (dadosMedicosDTO.getApresentacao() != null && !dadosMedicosDTO.getApresentacao().isBlank()) {
+            medico.setApresentacao(dadosMedicosDTO.getApresentacao());
+        }
+
+        // Se precisar atualizar dados do funcionário/usuário vinculado (como nome, cidade, rua)
+        if (medico.getFuncionario() != null) {
+            FuncionarioEntity func = medico.getFuncionario();
+            func.setMatricula(dadosMedicosDTO.getMatricula());
+
+            if (func.getUsuario() != null) {
+                func.getUsuario().setNome(dadosMedicosDTO.getNome());
+                usuarioRepository.save(func.getUsuario());
+            }
+            funcionarioRepository.save(func);
+        }
+
+        return medicoRepository.save(medico);
+    }
+
 
 
 }
