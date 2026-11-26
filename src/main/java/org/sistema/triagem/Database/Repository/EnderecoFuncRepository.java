@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface EnderecoFuncRepository extends JpaRepository<EnderecoFuncEntity, Integer> {
 
-    Optional<EnderecoFuncEntity> findByFuncionario(FuncionarioEntity funcionario);
+    Optional<EnderecoFuncEntity> findByFuncionario_id(FuncionarioEntity funcionario);
 }

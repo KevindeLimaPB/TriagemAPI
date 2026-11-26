@@ -117,7 +117,7 @@ public class MedicoService {
         dto.setCrm(medico.getCrm());
         dto.setEspecialidade(medico.getEspecialidade() != null ? medico.getEspecialidade().name() : "");
 
-        EnderecoFuncEntity endereco = enderecoFuncRepository.findByFuncionario(funcionario).orElse(null);
+        EnderecoFuncEntity endereco = enderecoFuncRepository.findByFuncionario_id(funcionario).orElse(null);
         if (endereco != null) {
             dto.setCidade(endereco.getCidade());
             dto.setRua(endereco.getRua());
@@ -148,7 +148,7 @@ public class MedicoService {
         medico.setPreco_consulta(dados.getPrecoConsulta());
         medicoRepository.save(medico);
 
-        EnderecoFuncEntity endereco = enderecoFuncRepository.findByFuncionario(funcionario).orElseGet(() -> {
+        EnderecoFuncEntity endereco = enderecoFuncRepository.findByFuncionario_id(funcionario).orElseGet(() -> {
             EnderecoFuncEntity novo = new EnderecoFuncEntity();
             novo.setFuncionario_id(funcionario);
             return novo;
