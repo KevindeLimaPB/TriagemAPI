@@ -1,5 +1,6 @@
 package org.sistema.triagem.Database.Repository;
 
+import org.sistema.triagem.Database.Model.FuncionarioEntity;
 import org.sistema.triagem.Database.Model.MedicoEntity;
 import org.sistema.triagem.Enums.EspecialidadeConsulta;
 import org.sistema.triagem.Enums.EspecialidadeMedic;
@@ -9,8 +10,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MedicoRepository extends JpaRepository<MedicoEntity, String> {
+
+    Optional<MedicoEntity> findByFuncionario(FuncionarioEntity funcionario);
 
     @Query("""
     SELECT new org.sistema.triagem.dto.Records.MedicoBuscaDTO(

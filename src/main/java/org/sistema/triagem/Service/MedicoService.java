@@ -9,6 +9,7 @@ import org.sistema.triagem.Enums.EspecialidadeMedic;
 import org.sistema.triagem.Exception.Conflict;
 import org.sistema.triagem.Exception.NotFoundException;
 import org.sistema.triagem.dto.DadosMedicosDTO;
+import org.sistema.triagem.dto.MedicoPerfilDTO;
 import org.sistema.triagem.dto.Records.MedicoBuscaDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -100,38 +101,63 @@ public class MedicoService {
         return medicoRepository.buscar(especialidade, cidadeFiltro);
     }
 
-    public MedicoEntity buscarPorCrm(String crm) throws  NotFoundException{
-        return medicoRepository.findById(crm)
-                .orElseThrow(() -> new NotFoundException("Médico não encontrado com o CRM: " + crm));
+    public MedicoPerfilDTO buscarPorMatricula(String matricula) throws NotFoundException {
+        // Busca direta sem Optional, verificando se veio nulo
+        FuncionarioEntity funcionario = funcionarioRepository.findByMatriculas(matricula);
+        if (funcionario == null) {
+            throw new NotFoundException("Funcionário não encontrado com a matrícula: " + matricula);
+        }
+
+        MedicoEntity medico = medicoRepository.findByFuncionario(funcionario)
+                .orElseThrow(() -> new NotFoundException("Médico não encontrado para esta matrícula."));
+
+        MedicoPerfilDTO dto = new MedicoPerfilDTO();
+        dto.setNome(funcionario.getUsuario() != null ? funcionario.getUsuario().getNome() : "");
+        dto.setMatricula(funcionario.getMatricula());
+        dto.setCrm(medico.getCrm());
+        dto.setEspecialidade(medico.getEspecialidade() != null ? medico.getEspecialidade().name() : "");
+
+        EnderecoFuncEntity endereco = enderecoFuncRepository.findByFuncionario(funcionario).orElse(null);
+        if (endereco != null) {
+            dto.setCidade(endereco.getCidade());
+            dto.setRua(endereco.getRua());
+        } else {
+            dto.setCidade("");
+            dto.setRua("");
+        }
+
+        dto.setPrecoConsulta(medico.getPreco_consulta());
+        return dto;
     }
 
     @Transactional
-    public MedicoEntity atualizar(DadosMedicosDTO dadosMedicosDTO) throws NotFoundException {
-        MedicoEntity medico = buscarPorCrm(dadosMedicosDTO.getCrm());
-
-        // Atualiza os dados do médico
-        medico.setEspecialidade(dadosMedicosDTO.getEspecialidade());
-        medico.setPreco_consulta(dadosMedicosDTO.getPrecoConsulta());
-
-        if (dadosMedicosDTO.getApresentacao() != null && !dadosMedicosDTO.getApresentacao().isBlank()) {
-            medico.setApresentacao(dadosMedicosDTO.getApresentacao());
+    public MedicoPerfilDTO atualizarPorMatricula(MedicoPerfilDTO dados) throws NotFoundException {
+        FuncionarioEntity funcionario = funcionarioRepository.findByMatriculas(dados.getMatricula());
+        if (funcionario == null) {
+            throw new NotFoundException("Funcionário não encontrado.");
         }
 
-        // Se precisar atualizar dados do funcionário/usuário vinculado (como nome, cidade, rua)
-        if (medico.getFuncionario() != null) {
-            FuncionarioEntity func = medico.getFuncionario();
-            func.setMatricula(dadosMedicosDTO.getMatricula());
+        MedicoEntity medico = medicoRepository.findByFuncionario(funcionario)
+                .orElseThrow(() -> new NotFoundException("Médico não encontrado."));
 
-            if (func.getUsuario() != null) {
-                func.getUsuario().setNome(dadosMedicosDTO.getNome());
-                usuarioRepository.save(func.getUsuario());
-            }
-            funcionarioRepository.save(func);
+        if (dados.getNome() != null && !dados.getNome().isBlank() && funcionario.getUsuario() != null) {
+            funcionario.getUsuario().setNome(dados.getNome());
+            usuarioRepository.save(funcionario.getUsuario());
         }
 
-        return medicoRepository.save(medico);
+        medico.setPreco_consulta(dados.getPrecoConsulta());
+        medicoRepository.save(medico);
+
+        EnderecoFuncEntity endereco = enderecoFuncRepository.findByFuncionario(funcionario).orElseGet(() -> {
+            EnderecoFuncEntity novo = new EnderecoFuncEntity();
+            novo.setFuncionario_id(funcionario);
+            return novo;
+        });
+
+        endereco.setCidade(dados.getCidade());
+        endereco.setRua(dados.getRua());
+        enderecoFuncRepository.save(endereco);
+
+        return dados;
     }
-
-
-
 }
