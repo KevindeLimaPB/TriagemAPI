@@ -49,4 +49,10 @@ public class MedicoController {
             @RequestParam(required = false) String cidade) {
         return medicoService.buscar(especialidade, cidade);
     }
+
+    @PutMapping("/perfil")
+    public ResponseEntity<MedicoPerfilDTO> atualizarPerfil(@RequestBody MedicoPerfilDTO dados) throws Exception {
+        MedicoPerfilDTO atualizado = medicoService.atualizarPorMatricula(dados);
+        return ResponseEntity.ok(atualizado);
+    }
 }
