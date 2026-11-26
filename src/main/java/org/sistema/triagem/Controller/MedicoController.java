@@ -9,6 +9,7 @@ import org.sistema.triagem.Enums.EspecialidadeMedic;
 import org.sistema.triagem.Service.MedicoService;
 import org.sistema.triagem.dto.DadosMedicosDTO;
 import org.sistema.triagem.dto.MedicoDTO;
+import org.sistema.triagem.dto.MedicoPerfilDTO;
 import org.sistema.triagem.dto.Records.MedicoBuscaDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,9 +33,9 @@ public class MedicoController {
     }
 
     @GetMapping("/perfil")
-    public ResponseEntity<MedicoEntity> buscarPerfil(@RequestParam String crm) throws Exception {
+    public ResponseEntity<MedicoPerfilDTO> buscarPerfil(@RequestParam String matricula) throws Exception {
         // Exemplo buscando pelo CRM ou ID do médico logado
-        MedicoEntity medico = medicoService.buscarPorCrm(crm);
+        MedicoPerfilDTO medico = medicoService.buscarPorMatricula(matricula);
         if (medico == null) {
             return ResponseEntity.notFound().build();
         }
