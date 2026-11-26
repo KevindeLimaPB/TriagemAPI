@@ -22,6 +22,7 @@ import java.util.List;
 @Validated
 @RequestMapping("/med")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MedicoController {
 
     private final MedicoService medicoService;
