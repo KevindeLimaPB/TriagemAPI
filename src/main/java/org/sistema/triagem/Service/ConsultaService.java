@@ -29,8 +29,9 @@ public class ConsultaService {
 
         // 2. Como o DTO recebe o médico como String (nome ou matrícula), buscamos adequadamente.
         // Se a sua MedicoEntity possui um campo de nome ou matrícula, ajuste o método de busca abaixo:
-        MedicoEntity medico = medicoRepository.findByNome(consultaDTO.getMedico())
-                .or(() -> medicoRepository.findByMatricula(consultaDTO.getMedico()))
+        MedicoEntity medico = medicoRepository
+                .findByNome(consultaDTO.getMedico())
+                .or(() -> medicoRepository.findByCrm(consultaDTO.getMedico()))
                 .orElseThrow(() -> new NotFoundException("Médico não encontrado: " + consultaDTO.getMedico()));
 
         // 3. Monta a entidade de consulta com os dados mapeados

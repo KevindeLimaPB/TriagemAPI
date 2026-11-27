@@ -15,11 +15,11 @@ public interface MedicoRepository extends JpaRepository<MedicoEntity, String> {
 
     Optional<MedicoEntity> findByFuncionario(FuncionarioEntity funcionario);
 
-    // Métodos adicionais para auxiliar na busca do médico pelo nome ou matrícula
-    Optional<MedicoEntity> findByMatricula(String matricula);
-
     @Query("SELECT m FROM MedicoEntity m JOIN m.funcionario f JOIN f.usuario u WHERE u.nome = :nome")
     Optional<MedicoEntity> findByNome(@Param("nome") String nome);
+
+    @Query("SELECT m FROM MedicoEntity m WHERE m.crm = :crm")
+    Optional<MedicoEntity> findByCrm(@Param("crm") String crm);
 
     @Query("""
     SELECT new org.sistema.triagem.dto.Records.MedicoBuscaDTO(
