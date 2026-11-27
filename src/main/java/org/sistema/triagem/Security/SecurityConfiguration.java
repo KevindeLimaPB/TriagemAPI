@@ -60,6 +60,8 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/med/perfil").permitAll()
 
 
+                        .requestMatchers(HttpMethod.POST, "/consulta").permitAll()
+
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users/find/**").permitAll()
 
