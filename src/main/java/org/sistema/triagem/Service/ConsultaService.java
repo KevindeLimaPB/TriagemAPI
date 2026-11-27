@@ -1,6 +1,5 @@
 package org.sistema.triagem.Service;
 
-
 import lombok.RequiredArgsConstructor;
 import org.sistema.triagem.Database.Model.ConsultaEntity;
 import org.sistema.triagem.Database.Model.MedicoEntity;
@@ -11,26 +10,28 @@ import org.sistema.triagem.Database.Repository.PacienteRepository;
 import org.sistema.triagem.Exception.NotFoundException;
 import org.sistema.triagem.dto.ConsultaDTO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class ConsultaService {
 
     private final ConsultaRepository consultaRepository;
-
     private final MedicoRepository medicoRepository;
-
     private final PacienteRepository pacienteRepository;
 
+    @Transactional
     public ConsultaEntity save(ConsultaDTO consultaDTO) throws NotFoundException {
         PacienteEntity paciente = pacienteRepository
                 .findById(consultaDTO.getPaciente())
                 .orElseThrow(() -> new NotFoundException("Paciente não encontrado"));
 
+
         MedicoEntity medico = medicoRepository
                 .findById(consultaDTO.getMedico())
                 .orElseThrow(() -> new NotFoundException("Médico não encontrado"));
 
+        // Constrói e persiste a entidade Consulta
         ConsultaEntity consulta = ConsultaEntity.builder()
                 .medico(medico)
                 .paciente(paciente)
@@ -40,5 +41,4 @@ public class ConsultaService {
 
         return consultaRepository.save(consulta);
     }
-
 }

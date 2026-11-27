@@ -16,17 +16,15 @@ import java.time.LocalDateTime;
 @Getter
 public class ConsultaDTO {
 
-    @NotNull
+    @NotNull(message = "A especialidade da consulta é obrigatória.")
     private EspecialidadeConsulta especialidadeConsulta;
 
-    @NotBlank
+    @NotBlank(message = "O médico é obrigatório.")
     private String medico;
 
-    @NotNull
+    @NotNull(message = "O ID do paciente é obrigatório.")
     private Integer paciente;
 
-    @NotBlank
+    @NotNull(message = "A data e hora da consulta são obrigatórias.")
     private LocalDateTime data_hora;
 }
-
-
