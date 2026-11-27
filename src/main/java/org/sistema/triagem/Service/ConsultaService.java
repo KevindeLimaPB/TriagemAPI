@@ -22,16 +22,18 @@ public class ConsultaService {
 
     @Transactional
     public ConsultaEntity save(ConsultaDTO consultaDTO) throws NotFoundException {
+        // 1. Busca o paciente pelo ID numérico enviado no DTO
         PacienteEntity paciente = pacienteRepository
                 .findById(consultaDTO.getPaciente())
                 .orElseThrow(() -> new NotFoundException("Paciente não encontrado"));
 
+        // 2. Como o DTO recebe o médico como String (nome ou matrícula), buscamos adequadamente.
+        // Se a sua MedicoEntity possui um campo de nome ou matrícula, ajuste o método de busca abaixo:
+        MedicoEntity medico = medicoRepository.findByNome(consultaDTO.getMedico())
+                .or(() -> medicoRepository.findByMatricula(consultaDTO.getMedico()))
+                .orElseThrow(() -> new NotFoundException("Médico não encontrado: " + consultaDTO.getMedico()));
 
-        MedicoEntity medico = medicoRepository
-                .findById(consultaDTO.getMedico())
-                .orElseThrow(() -> new NotFoundException("Médico não encontrado"));
-
-        // Constrói e persiste a entidade Consulta
+        // 3. Monta a entidade de consulta com os dados mapeados
         ConsultaEntity consulta = ConsultaEntity.builder()
                 .medico(medico)
                 .paciente(paciente)

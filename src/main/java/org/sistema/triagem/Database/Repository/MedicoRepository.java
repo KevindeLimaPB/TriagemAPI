@@ -2,7 +2,6 @@ package org.sistema.triagem.Database.Repository;
 
 import org.sistema.triagem.Database.Model.FuncionarioEntity;
 import org.sistema.triagem.Database.Model.MedicoEntity;
-import org.sistema.triagem.Enums.EspecialidadeConsulta;
 import org.sistema.triagem.Enums.EspecialidadeMedic;
 import org.sistema.triagem.dto.Records.MedicoBuscaDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,6 +14,12 @@ import java.util.Optional;
 public interface MedicoRepository extends JpaRepository<MedicoEntity, String> {
 
     Optional<MedicoEntity> findByFuncionario(FuncionarioEntity funcionario);
+
+    // Métodos adicionais para auxiliar na busca do médico pelo nome ou matrícula
+    Optional<MedicoEntity> findByMatricula(String matricula);
+
+    @Query("SELECT m FROM MedicoEntity m JOIN m.funcionario f JOIN f.usuario u WHERE u.nome = :nome")
+    Optional<MedicoEntity> findByNome(@Param("nome") String nome);
 
     @Query("""
     SELECT new org.sistema.triagem.dto.Records.MedicoBuscaDTO(
