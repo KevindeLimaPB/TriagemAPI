@@ -1,5 +1,6 @@
 package org.sistema.triagem.Database.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,6 +17,7 @@ public class EnderecoFuncEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "funcionario_id")
     private FuncionarioEntity funcionario_id;
@@ -25,6 +27,7 @@ public class EnderecoFuncEntity {
 
     @Column
     private String cidade;
+
     @Column
     private String bairro;
 
