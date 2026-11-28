@@ -28,8 +28,8 @@ public class ConsultaDTO {
     @NotBlank(message = "O médico é obrigatório.")
     private String medico;
 
-    @NotNull(message = "O ID do paciente é obrigatório.")
-    private Integer paciente;
+    @NotBlank(message = "O CPF do paciente é obrigatório.")
+    private String pacienteCpf;
 
     @NotNull(message = "A data e hora da consulta são obrigatórias.")
     private LocalDateTime data_hora;

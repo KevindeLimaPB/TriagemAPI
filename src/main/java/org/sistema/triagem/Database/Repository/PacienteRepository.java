@@ -10,10 +10,11 @@ import java.util.Optional;
 
 public interface PacienteRepository extends JpaRepository<PacienteEntity, Integer> {
 
+    // Método usado pelo Service para buscar o paciente através do CPF do Usuario associado via FK
+    @Query("SELECT p FROM PacienteEntity p WHERE p.usuario.cpf = :cpf")
+    Optional<PacienteEntity> findByUsuarioCpf(@Param("cpf") String cpf);
 
-    @Query("SELECT p FROM PacienteEntity p WHERE p.usuario = :cpf")
-    Optional<PacienteEntity> findByUsuarioCPF(@Param("cpf") String cpf);
-
+    // Método padrão de busca por entidade UsuarioEntity
     Optional<PacienteEntity> findByUsuario(UsuarioEntity usuarioEntity);
 
 }

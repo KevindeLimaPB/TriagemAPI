@@ -23,9 +23,10 @@ public class ConsultaService {
 
     @Transactional
     public ConsultaEntity save(ConsultaDTO consultaDTO) throws NotFoundException {
+        // Encontra o paciente navegando pela FK do usuário usando o CPF enviado no DTO
         PacienteEntity paciente = pacienteRepository
-                .findById(consultaDTO.getPaciente())
-                .orElseThrow(() -> new NotFoundException("Paciente não encontrado"));
+                .findByUsuarioCpf(consultaDTO.getPacienteCpf())
+                .orElseThrow(() -> new NotFoundException("Paciente não encontrado para o CPF: " + consultaDTO.getPacienteCpf()));
 
         MedicoEntity medico = medicoRepository
                 .findByNome(consultaDTO.getMedico())
@@ -38,7 +39,7 @@ public class ConsultaService {
                 .planosSaude(consultaDTO.getPlanosSaude())
                 .especialidade(consultaDTO.getEspecialidadeConsulta())
                 .dia_hora(consultaDTO.getData_hora())
-                .status(consultaDTO.getStatus())
+                .status(consultaDTO.getStatus() != null ? consultaDTO.getStatus() : Status.EM_AGUARDO)
                 .build();
 
         return consultaRepository.save(consulta);

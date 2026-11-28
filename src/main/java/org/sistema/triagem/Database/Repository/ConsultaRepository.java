@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ConsultaRepository extends JpaRepository<ConsultaEntity, Integer> {
     List<ConsultaEntity> findByPacienteUsuarioCpf(String cpf);
+
 }
