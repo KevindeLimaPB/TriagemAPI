@@ -1,5 +1,6 @@
 package org.sistema.triagem.Database.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.sistema.triagem.Enums.EspecialidadeConsulta;
@@ -32,11 +33,11 @@ public class ConsultaEntity {
     private Status status = Status.EM_AGUARDO;
 
 
-
     @Column
     private LocalDateTime dia_hora;
 
     @ManyToOne
+    @JsonIgnoreProperties({"funcionario"})
     @JoinColumn(name = "medico")
     private MedicoEntity medico;
 

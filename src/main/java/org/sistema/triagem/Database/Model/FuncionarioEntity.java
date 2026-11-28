@@ -1,5 +1,6 @@
 package org.sistema.triagem.Database.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.jspecify.annotations.Nullable;
@@ -33,7 +34,7 @@ public class FuncionarioEntity implements UserDetails {
     @JoinColumn(name = "usuario")
     private UsuarioEntity usuario;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "funcionario")
     private Set<MedicoEntity> medicos;
 

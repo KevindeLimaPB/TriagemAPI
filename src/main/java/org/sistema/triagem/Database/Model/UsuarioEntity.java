@@ -1,6 +1,7 @@
 package org.sistema.triagem.Database.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
@@ -20,6 +21,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIgnoreProperties(
+        value = {"password", "username", "authorities",
+                "accountNonExpired", "accountNonLocked",
+                "credentialsNonExpired", "enabled"},
+        allowSetters = true
+)
 public class UsuarioEntity implements UserDetails {
 
     @Column

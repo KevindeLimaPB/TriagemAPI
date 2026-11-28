@@ -1,5 +1,6 @@
 package org.sistema.triagem.Database.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,6 +21,7 @@ public class Telefone_FuncEntity {
     private String telefone;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "funcionario")
     private FuncionarioEntity funcionario;
 }
