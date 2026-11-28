@@ -70,4 +70,21 @@ public class ConsultaService {
                 .or(() -> medicoRepository.findByNome(identificador))
                 .orElseThrow(() -> new NotFoundException("Médico não encontrado: " + identificador));
     }
+
+    @Transactional
+    public ConsultaEntity reagendar(Integer id, LocalDateTime novaDataHora) throws NotFoundException {
+        ConsultaEntity consulta = consultaRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Consulta não encontrada com o ID: " + id));
+
+        if (consulta.getStatus() == Status.CANCELADA) {
+            throw new IllegalStateException("Não é possível reagendar uma consulta cancelada.");
+        }
+
+        if (novaDataHora.isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("A nova data da consulta deve estar no futuro.");
+        }
+
+        consulta.setDia_hora(novaDataHora);
+        return consultaRepository.save(consulta);
+    }
 }

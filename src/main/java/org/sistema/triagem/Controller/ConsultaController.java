@@ -7,12 +7,14 @@ import org.sistema.triagem.Database.Repository.ConsultaRepository;
 import org.sistema.triagem.Exception.NotFoundException;
 import org.sistema.triagem.Service.ConsultaService;
 import org.sistema.triagem.dto.ConsultaDTO;
+import org.sistema.triagem.dto.ReagendarConsultaDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/consulta")
@@ -47,5 +49,22 @@ public class ConsultaController {
         return consultaRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> reagendar(
+            @PathVariable Integer id,
+            @RequestBody @Valid ReagendarConsultaDTO dto) throws NotFoundException {
+
+        ConsultaEntity consulta = consultaService.reagendar(id, dto.getData_hora());
+        return ResponseEntity.ok(Map.of(
+                "id", consulta.getId(),
+                "dia_hora", consulta.getDia_hora().toString()
+        ));
+    }
+
+    @ExceptionHandler({IllegalArgumentException.class, IllegalStateException.class})
+    public ResponseEntity<Map<String, Object>> tratarRegraDeNegocio(RuntimeException e) {
+        return ResponseEntity.badRequest().body(Map.of("response", e.getMessage(), "status", 400));
     }
 }
