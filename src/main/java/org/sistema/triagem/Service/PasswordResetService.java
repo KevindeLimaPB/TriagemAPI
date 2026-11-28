@@ -123,14 +123,12 @@ public class PasswordResetService {
             throw new RuntimeException("Sessão expirada. Solicite um novo código.");
         }
 
-        // Busca o usuário utilizando o 'login' conforme mapeado na UsuarioEntity
         UsuarioEntity usuario = usuarioRepo.findByEmail(prc.getEmail())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
 
         usuario.setSenha(encoder.encode(novaSenha));
         usuarioRepo.save(usuario);
 
-        // Invalida o registo após a troca bem-sucedida
         prc.setUsed(true);
         prc.setResetTokenHash(null);
         prc.setResetTokenExpiresAt(null);
