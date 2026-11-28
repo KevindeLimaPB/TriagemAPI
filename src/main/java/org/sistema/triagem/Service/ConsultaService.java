@@ -23,9 +23,15 @@ public class ConsultaService {
 
     @Transactional
     public ConsultaEntity save(ConsultaDTO consultaDTO) throws NotFoundException {
-        // Encontra o paciente navegando pela FK do usuário usando o CPF enviado no DTO
+
+        // Limpa qualquer pontuação ou caractere especial do CPF recebido (ex: pontos e traços)
+        String cpfLimpo = consultaDTO.getPacienteCpf() != null
+                ? consultaDTO.getPacienteCpf().replaceAll("\\D", "")
+                : "";
+
+        // Encontra o paciente navegando pela FK do usuário usando o CPF limpo
         PacienteEntity paciente = pacienteRepository
-                .findByUsuarioCpf(consultaDTO.getPacienteCpf())
+                .findByUsuarioCpf(cpfLimpo)
                 .orElseThrow(() -> new NotFoundException("Paciente não encontrado para o CPF: " + consultaDTO.getPacienteCpf()));
 
         MedicoEntity medico = medicoRepository
