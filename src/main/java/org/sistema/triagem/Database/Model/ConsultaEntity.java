@@ -3,6 +3,9 @@ package org.sistema.triagem.Database.Model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.sistema.triagem.Enums.EspecialidadeConsulta;
+import org.sistema.triagem.Enums.Planos_Saude;
+import org.sistema.triagem.Enums.Status;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,6 +23,15 @@ public class ConsultaEntity {
 
     @Enumerated(EnumType.STRING)
     private EspecialidadeConsulta especialidade;
+
+    @Enumerated(EnumType.STRING)
+    private Planos_Saude planosSaude;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private Status status = Status.EM_AGUARDO;
+
+
 
     @Column
     private LocalDateTime dia_hora;

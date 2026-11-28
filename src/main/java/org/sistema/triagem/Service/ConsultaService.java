@@ -7,6 +7,7 @@ import org.sistema.triagem.Database.Model.PacienteEntity;
 import org.sistema.triagem.Database.Repository.ConsultaRepository;
 import org.sistema.triagem.Database.Repository.MedicoRepository;
 import org.sistema.triagem.Database.Repository.PacienteRepository;
+import org.sistema.triagem.Enums.Status;
 import org.sistema.triagem.Exception.NotFoundException;
 import org.sistema.triagem.dto.ConsultaDTO;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,6 @@ public class ConsultaService {
                 .findById(consultaDTO.getPaciente())
                 .orElseThrow(() -> new NotFoundException("Paciente não encontrado"));
 
-
         MedicoEntity medico = medicoRepository
                 .findByNome(consultaDTO.getMedico())
                 .or(() -> medicoRepository.findByCrm(consultaDTO.getMedico()))
@@ -35,17 +35,21 @@ public class ConsultaService {
         ConsultaEntity consulta = ConsultaEntity.builder()
                 .medico(medico)
                 .paciente(paciente)
+                .planosSaude(consultaDTO.getPlanosSaude())
                 .especialidade(consultaDTO.getEspecialidadeConsulta())
                 .dia_hora(consultaDTO.getData_hora())
+                .status(consultaDTO.getStatus())
                 .build();
 
         return consultaRepository.save(consulta);
     }
 
+    @Transactional
     public void deletar(Integer id) {
-        if (!consultaRepository.existsById(id)) {
-            throw new RuntimeException("Consulta não encontrada com o ID: " + id);
-        }
-        consultaRepository.deleteById(id);
+        ConsultaEntity consulta = consultaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Consulta não encontrada com o ID: " + id));
+
+        consulta.setStatus(Status.CANCELADA);
+        consultaRepository.save(consulta);
     }
 }

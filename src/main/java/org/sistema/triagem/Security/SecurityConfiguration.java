@@ -60,9 +60,10 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/med/perfil").permitAll()
 
 
-                        .requestMatchers(HttpMethod.POST, "/consulta").permitAll()
                         .requestMatchers(HttpMethod.GET, "/consulta/**").permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/consulta/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/consulta").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/consulta/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/consulta/**").authenticated()
 
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users/find/**").permitAll()

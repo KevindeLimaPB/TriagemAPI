@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.sistema.triagem.Enums.EspecialidadeConsulta;
+import org.sistema.triagem.Enums.Planos_Saude;
+import org.sistema.triagem.Enums.Status;
 
 import java.time.LocalDateTime;
 
@@ -18,6 +20,10 @@ public class ConsultaDTO {
 
     @NotNull(message = "A especialidade da consulta é obrigatória.")
     private EspecialidadeConsulta especialidadeConsulta;
+
+    private Planos_Saude planosSaude;
+
+    private Status status;
 
     @NotBlank(message = "O médico é obrigatório.")
     private String medico;

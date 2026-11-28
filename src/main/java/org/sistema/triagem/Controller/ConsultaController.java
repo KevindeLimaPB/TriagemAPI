@@ -40,4 +40,11 @@ public class ConsultaController {
     public void deletarConsulta(@PathVariable Integer id) {
         consultaService.deletar(id);
     }
+
+    @GetMapping("/detalhes/{id}")
+    public ResponseEntity<ConsultaEntity> buscarPorId(@PathVariable Integer id) {
+        return consultaRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
