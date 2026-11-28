@@ -50,22 +50,22 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/telfunc").permitAll()
 
                         .requestMatchers(HttpMethod.POST, "/endpac").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/pac").hasRole("CLIENTE")
+                        .requestMatchers(HttpMethod.POST, "/pac").permitAll()
                         .requestMatchers(HttpMethod.POST, "/telpac").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/pac/perfil").hasRole("CLIENTE")
-                        .requestMatchers(HttpMethod.POST, "/pac/perfil/find").hasRole("CLIENTE")
-                        .requestMatchers(HttpMethod.GET, "/pac/**").hasRole("CLIENTE")
+                        .requestMatchers(HttpMethod.POST, "/pac/perfil").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/pac/perfil/find").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/pac/**").permitAll()
 
 
                         .requestMatchers(HttpMethod.POST, "/med").permitAll()
                         .requestMatchers(HttpMethod.GET, "/med/buscar").permitAll()
                         .requestMatchers(HttpMethod.GET, "/med/perfil").permitAll()
 
-
+                        // Liberado para consultas passarem sem 403 indesejado
                         .requestMatchers(HttpMethod.GET, "/consulta/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/consulta").authenticated()
-                        .requestMatchers(HttpMethod.DELETE, "/consulta/**").authenticated()
-                        .requestMatchers(HttpMethod.PUT, "/consulta/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/consulta").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/consulta/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/consulta/**").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users/find/**").permitAll()
