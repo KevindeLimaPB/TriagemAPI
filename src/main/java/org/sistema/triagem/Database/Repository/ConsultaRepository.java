@@ -11,10 +11,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ConsultaRepository extends JpaRepository<ConsultaEntity, Integer> {
-    List<ConsultaEntity> findByPacienteUsuarioCpf(String cpf);
     @Query("SELECT COUNT(c) > 0 FROM ConsultaEntity c " +
             "WHERE c.medico = :medico AND c.dia_hora = :diaHora AND c.status <> :cancelada")
     boolean existeConflito(@Param("medico") MedicoEntity medico,
                            @Param("diaHora") LocalDateTime diaHora,
                            @Param("cancelada") Status cancelada);
+
+    @Query("SELECT c FROM ConsultaEntity c " +
+            "WHERE REPLACE(REPLACE(c.paciente.usuario.cpf, '.', ''), '-', '') = :cpf")
+    List<ConsultaEntity> findByPacienteUsuarioCpf(@Param("cpf") String cpf);
 }
