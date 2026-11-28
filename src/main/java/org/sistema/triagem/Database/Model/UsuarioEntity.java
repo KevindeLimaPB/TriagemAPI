@@ -1,5 +1,6 @@
 package org.sistema.triagem.Database.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
@@ -29,6 +30,7 @@ public class UsuarioEntity implements UserDetails {
     private String login;
 
     @Column
+    @JsonIgnore
     private String senha;
 
     @Id

@@ -13,6 +13,8 @@ import org.sistema.triagem.dto.ConsultaDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class ConsultaService {
@@ -22,30 +24,26 @@ public class ConsultaService {
     private final PacienteRepository pacienteRepository;
 
     @Transactional
-    public ConsultaEntity save(ConsultaDTO consultaDTO) throws NotFoundException {
+    public ConsultaEntity save(ConsultaDTO dto) throws NotFoundException {
 
-        // Limpa qualquer pontuação ou caractere especial do CPF recebido (ex: pontos e traços)
-        String cpfLimpo = consultaDTO.getPacienteCpf() != null
-                ? consultaDTO.getPacienteCpf().replaceAll("\\D", "")
-                : "";
+        PacienteEntity paciente = buscarPaciente(dto.getPacienteCpf());
+        MedicoEntity medico = buscarMedico(dto.getMedico());
 
-        // Encontra o paciente navegando pela FK do usuário usando o CPF limpo
-        PacienteEntity paciente = pacienteRepository
-                .findByUsuarioCpf(cpfLimpo)
-                .orElseThrow(() -> new NotFoundException("Paciente não encontrado para o CPF: " + consultaDTO.getPacienteCpf()));
+        if (dto.getData_hora().isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("A data da consulta deve estar no futuro.");
+        }
 
-        MedicoEntity medico = medicoRepository
-                .findByNome(consultaDTO.getMedico())
-                .or(() -> medicoRepository.findByCrm(consultaDTO.getMedico()))
-                .orElseThrow(() -> new NotFoundException("Médico não encontrado: " + consultaDTO.getMedico()));
+        if (consultaRepository.existeConflito(medico, dto.getData_hora(), Status.CANCELADA)) {
+            throw new IllegalStateException("Esse horário já está ocupado para o médico escolhido.");
+        }
 
         ConsultaEntity consulta = ConsultaEntity.builder()
                 .medico(medico)
                 .paciente(paciente)
-                .planosSaude(consultaDTO.getPlanosSaude())
-                .especialidade(consultaDTO.getEspecialidadeConsulta())
-                .dia_hora(consultaDTO.getData_hora())
-                .status(consultaDTO.getStatus() != null ? consultaDTO.getStatus() : Status.EM_AGUARDO)
+                .planosSaude(dto.getPlanosSaude())
+                .especialidade(dto.getEspecialidadeConsulta())
+                .dia_hora(dto.getData_hora())
+                .status(dto.getStatus() != null ? dto.getStatus() : Status.EM_AGUARDO)
                 .build();
 
         return consultaRepository.save(consulta);
@@ -58,5 +56,18 @@ public class ConsultaService {
 
         consulta.setStatus(Status.CANCELADA);
         consultaRepository.save(consulta);
+    }
+
+
+    private PacienteEntity buscarPaciente(String cpf) throws NotFoundException {
+        String cpfLimpo = cpf == null ? "" : cpf.replaceAll("\\D", "");
+        return pacienteRepository.findByUsuarioCpf(cpfLimpo)
+                .orElseThrow(() -> new NotFoundException("Paciente não encontrado para o CPF informado."));
+    }
+
+    private MedicoEntity buscarMedico(String identificador) throws NotFoundException {
+        return medicoRepository.findByCrm(identificador)
+                .or(() -> medicoRepository.findByNome(identificador))
+                .orElseThrow(() -> new NotFoundException("Médico não encontrado: " + identificador));
     }
 }

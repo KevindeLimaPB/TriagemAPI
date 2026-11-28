@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.sistema.triagem.Database.Model.ConsultaEntity;
 import org.sistema.triagem.Database.Repository.ConsultaRepository;
+import org.sistema.triagem.Exception.NotFoundException;
 import org.sistema.triagem.Service.ConsultaService;
 import org.sistema.triagem.dto.ConsultaDTO;
 import org.springframework.http.HttpStatus;
@@ -23,17 +24,16 @@ public class ConsultaController {
     private final ConsultaService consultaService;
     private final ConsultaRepository consultaRepository;
 
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ConsultaEntity save(@RequestBody @Valid ConsultaDTO consultaDTO) throws Exception {
-        return consultaService.save(consultaDTO);
+    public ConsultaEntity save(@RequestBody @Valid ConsultaDTO dto) throws NotFoundException {
+        return consultaService.save(dto);
     }
 
     @GetMapping("/{cpf}")
     public ResponseEntity<List<ConsultaEntity>> listarPorPaciente(@PathVariable String cpf) {
-        List<ConsultaEntity> consultas = consultaRepository.findByPacienteUsuarioCpf(cpf);
-        return ResponseEntity.ok(consultas);
+        String cpfLimpo = cpf.replaceAll("\\D", "");
+        return ResponseEntity.ok(consultaRepository.findByPacienteUsuarioCpf(cpfLimpo));
     }
 
     @DeleteMapping("/{id}")
