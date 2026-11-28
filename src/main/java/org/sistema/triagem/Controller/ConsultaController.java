@@ -29,9 +29,9 @@ public class ConsultaController {
         return consultaService.save(consultaDTO);
     }
 
-    @GetMapping("/paciente/{pacienteId}")
-    public ResponseEntity<List<ConsultaEntity>> listarPorPaciente(@PathVariable Integer pacienteId) {
-        List<ConsultaEntity> consultas = consultaRepository.findByPacienteId(pacienteId);
+    @GetMapping("/{cpf}")
+    public ResponseEntity<List<ConsultaEntity>> listarPorPaciente(@PathVariable String cpf) {
+        List<ConsultaEntity> consultas = consultaRepository.findByPacienteUsuarioCpf(cpf);
         return ResponseEntity.ok(consultas);
     }
 }

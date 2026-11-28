@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ConsultaRepository extends JpaRepository<ConsultaEntity, Integer> {
-    List<ConsultaEntity> findByPacienteId(Integer pacienteId);
+    List<ConsultaEntity> findByPacienteUsuarioCpf(String cpf);
 }
