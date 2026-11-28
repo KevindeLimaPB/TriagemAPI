@@ -54,6 +54,8 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/telpac").permitAll()
                         .requestMatchers(HttpMethod.POST, "/pac/perfil").hasRole("CLIENTE")
                         .requestMatchers(HttpMethod.POST, "/pac/perfil/find").hasRole("CLIENTE")
+                        .requestMatchers(HttpMethod.GET, "/pac/**").hasRole("CLIENTE")
+
 
                         .requestMatchers(HttpMethod.POST, "/med").permitAll()
                         .requestMatchers(HttpMethod.GET, "/med/buscar").permitAll()
