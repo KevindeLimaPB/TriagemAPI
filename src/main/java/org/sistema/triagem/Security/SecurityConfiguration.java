@@ -62,6 +62,7 @@ public class SecurityConfiguration {
 
                         .requestMatchers(HttpMethod.POST, "/consulta").permitAll()
                         .requestMatchers(HttpMethod.GET, "/consulta/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/consulta/**").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users/find/**").permitAll()

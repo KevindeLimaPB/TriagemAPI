@@ -34,4 +34,10 @@ public class ConsultaController {
         List<ConsultaEntity> consultas = consultaRepository.findByPacienteUsuarioCpf(cpf);
         return ResponseEntity.ok(consultas);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletarConsulta(@PathVariable Integer id) {
+        consultaService.deletar(id);
+    }
 }

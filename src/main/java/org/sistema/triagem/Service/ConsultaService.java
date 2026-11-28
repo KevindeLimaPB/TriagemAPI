@@ -41,4 +41,11 @@ public class ConsultaService {
 
         return consultaRepository.save(consulta);
     }
+
+    public void deletar(Integer id) {
+        if (!consultaRepository.existsById(id)) {
+            throw new RuntimeException("Consulta não encontrada com o ID: " + id);
+        }
+        consultaRepository.deleteById(id);
+    }
 }
