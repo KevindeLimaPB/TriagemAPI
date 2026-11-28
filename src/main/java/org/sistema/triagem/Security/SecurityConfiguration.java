@@ -61,7 +61,6 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/med/buscar").permitAll()
                         .requestMatchers(HttpMethod.GET, "/med/perfil").permitAll()
 
-                        // Liberado para consultas passarem sem 403 indesejado
                         .requestMatchers(HttpMethod.GET, "/consulta/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/consulta").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/consulta/**").permitAll()

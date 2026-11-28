@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/consulta")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 @Validated
 public class ConsultaController {
 
